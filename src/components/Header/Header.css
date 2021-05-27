@@ -1,0 +1,40 @@
+header {
+    min-height: 70px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    overflow: hidden;
+    background-color: #C4C4C4;
+}
+
+header .logo a {
+    text-decoration: none;
+    color: black;
+    margin-right: 1350px;
+}
+
+header nav {
+    display: flex;
+}
+
+nav ul li {
+    list-style: none;
+    display: inline-block;
+}
+
+nav ul li a {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: black;
+    padding: 0 15px;
+    font-size: 20px;
+}
+
+nav ul li a:hover {
+    color: deepskyblue;
+}
+
+.anticon svg {
+    display: inline-block;
+    font-size: 36px;
+}
