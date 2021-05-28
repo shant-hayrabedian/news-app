@@ -1,26 +1,38 @@
-import {Card} from 'antd';
+import React, { useState, useEffect } from 'react'
+// import axios from 'axios'
+
+import { Col, Row } from 'antd';
 import './Home.css';
+
+
+
+//redux
+import { useSelector, useDispatch } from 'react-redux'
+import { loadFetchedNews } from '../../reducers/newsSlice/actions/actionCreators';
+import { ConsoleSqlOutlined } from '@ant-design/icons';
+import SingleCard from '../SingleCard/SingleCard';
+
 const Home = () => {
-    const {Meta} = Card;
+
+    const news = useSelector((state) => state.FetchNews.news);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+
+        dispatch(loadFetchedNews())
+
+    }, [])
+
+
+    const listOfNews = news?.map((singleNews) => <SingleCard key={singleNews.url} name={singleNews.source.name} {...singleNews} />)
+
     return (
         <div>
             <h2>Sources</h2>
-            {/*    */}
-            <Card
-                style={{width: 300, background: '#C4C4C4'}}
-                actions={[
-                    <a>political</a>,
-                    <a>Language</a>,
-                    <a>country</a>
-                ]}
-            >
-                <Meta
-                    title="New York Times"
-                    description="Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                     Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                      when an unknown printer took a galley of type and scrambled it to make a type specimen book"
-                />
-            </Card>
+            <Row justify="space-around" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} >
+                {listOfNews}
+            </Row>
         </div>
     )
 }
