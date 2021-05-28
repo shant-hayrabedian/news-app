@@ -1,15 +1,18 @@
 import {Link} from "react-router-dom";
-import React from "react";
+import React, {useState} from "react";
 import './Header.css';
 import { SearchOutlined } from '@ant-design/icons';
 import { Input } from 'antd';
+import Search from "antd/es/input/Search";
 
 const Header = () => {
-    // function _handleInputClick(event) {
-    //     if (event.target.tagName === 'INPUT') {
-    //         this.setState({open: 'calendar'});
-    //     }
-    // }
+    const [showInput, setShowInput] = useState(false);
+    const click =() => {
+        setShowInput(true);
+    }
+    const onSearch = value => console.log(value);
+
+
     return (
         <header>
             <div className="logo">
@@ -18,13 +21,8 @@ const Header = () => {
             <nav>
                 <ul>
                     <li>
-                        {/*<Link to="/search">*/}
-                    <SearchOutlined onClick={(event) => {
-                        // if (event.target.tagName === 'INPUT') {
-                        //     <Input placeholder="Basic usage" />
-                        // }
-                    }} />
-                    {/*</Link>*/}
+                        <SearchOutlined onClick={click} />
+                        { showInput ? <Input className="searchInput" placeholder="Search Here..." /> : null }
                     </li>
                 </ul>
             </nav>
