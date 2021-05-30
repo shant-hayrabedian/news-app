@@ -15,6 +15,8 @@ import SingleCard from '../SingleCard/SingleCard';
 const Home = () => {
 
     const news = useSelector((state) => state.FetchNews.news);
+   
+    console.log(news)
 
     const dispatch = useDispatch();
 
@@ -25,7 +27,7 @@ const Home = () => {
     }, [])
 
 
-    const listOfNews = news?.map((singleNews) => <SingleCard key={singleNews.url} name={singleNews.source.name} {...singleNews} />)
+    const listOfNews = news?.map((singleNews) => <SingleCard key={singleNews.id} {...singleNews} />)
 
     return (
         <div>

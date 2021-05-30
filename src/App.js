@@ -12,9 +12,9 @@ function App() {
                     <Header />
                     <div>
                         <Switch>
-                            <Route exact path="/"><Home /></Route>
-                            <Route exact path="/search"><Search /></Route>
-                            <Route path="*"><NotFound /></Route>
+                            <Route exact path="/" component={Home} />
+                            <Route exact path="/search" component={Search} /> 
+                            <Route path="*" component={NotFound} />
                         </Switch>
                     </div>
                 </div>
