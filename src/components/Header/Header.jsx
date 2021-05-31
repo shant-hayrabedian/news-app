@@ -13,7 +13,7 @@ const Header = () => {
     const click = () => {
         setShowInput(true);
     }
-    const onSearch = value => console.log(value);
+    const onSearch = event => console.log(event.target.value);
 
 
     return (
@@ -25,7 +25,7 @@ const Header = () => {
                 <ul>
                     <li>
                         <SearchOutlined onClick={click}/>
-                        {showInput ? <Input className="searchInput" placeholder="Search Here..." onKeyPress={(e) => {
+                        {showInput ? <Input onChange={onSearch} className="searchInput" placeholder="Search Here..." onKeyPress={(e) => {
                             if (e.key === 'Enter') {
                                 history.push('/search');
                             }
