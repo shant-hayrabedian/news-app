@@ -1,12 +1,12 @@
 import { Card, Col} from 'antd';
 import { NavLink, Link } from 'react-router-dom'
 
-import '../Home/Home.css';
+import '../Home.css';
 
 
 
-const SingleCard = ({ name, description, country, category, language }) => {
-
+const SingleSourceCard = (props) => {
+    const { name, description, country, category, language, id} = props
     const { Meta } = Card;
 
     return (
@@ -22,7 +22,7 @@ const SingleCard = ({ name, description, country, category, language }) => {
             ]}
             
         >
-            <Link to ="/search">
+            <Link to ={`/search/${id}`}>
             <Meta
                 title={name}
                 description={description}
@@ -35,4 +35,4 @@ const SingleCard = ({ name, description, country, category, language }) => {
     )
 }
 
-export default SingleCard
+export default SingleSourceCard
