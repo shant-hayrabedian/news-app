@@ -1,5 +1,5 @@
-import {FETCH_SOURCES} from '../../CONSTANTS'
-import {fetchSources} from '../../APICALLS.js'
+import {FETCH_SOURCES} from './constants'
+import {fetchSources} from '../APICALLS.js'
 
 
 //actions

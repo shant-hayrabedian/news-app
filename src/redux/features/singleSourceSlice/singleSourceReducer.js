@@ -1,4 +1,4 @@
-import {FETCH_BY_SINGLE_SELECTED_SOURCE_ARTICLES} from '../CONSTANTS'
+import {FETCH_BY_SINGLE_SELECTED_SOURCE_ARTICLES} from './constants'
 
 
 export const initialArticlesState = {}

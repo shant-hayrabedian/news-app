@@ -22,7 +22,7 @@ const SingleSourceCard = (props) => {
             ]}
             
         >
-            <Link to ={`/search/${id}`}>
+            <Link to ={`/search?sources=${id}`}>
             <Meta
                 title={name}
                 description={description}
