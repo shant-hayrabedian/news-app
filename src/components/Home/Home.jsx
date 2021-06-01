@@ -8,7 +8,7 @@ import './Home.css';
 
 //redux../../redux/features/sourcesSlice/actions/actionCreators
 import { useSelector, useDispatch } from 'react-redux'
-import { loadFetchedNews } from '../../redux/features/sourcesSlice/actionCreators.js';
+import { loadFetchedSources } from '../../redux/features/sourcesSlice/actionCreators.js';
 import { ConsoleSqlOutlined } from '@ant-design/icons';
 import SingleSourceCard from './SingleSourceCard/SingleSourceCard';
 
@@ -20,7 +20,7 @@ const Home = () => {
 
     useEffect(() => {
 
-        dispatch(loadFetchedNews())
+        dispatch(loadFetchedSources())
 
     }, [])
 
