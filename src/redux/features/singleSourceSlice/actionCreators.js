@@ -1,5 +1,5 @@
 import {FETCH_BY_SINGLE_SELECTED_SOURCE_ARTICLES} from './constants'
-import {fetchArticlesBySelectedSource} from '../APICALLS'
+import {fetchArticlesBySelectedSource} from '../../../api/singleSourceSliceAPI'
 
 
 //actions

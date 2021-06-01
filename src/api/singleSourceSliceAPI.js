@@ -1,9 +1,9 @@
 import {endpoints} from './endpoints'
-
+import customAxios from './axiosconfig'
 
 
 export function fetchArticlesBySelectedSource(endpointOrID) {
-    return axios.get(enpoints.urlArticles)
+    return customAxios.get(endpoints.urlArticles(endpointOrID))
         .then(response => response.data)
         .catch((error) => console.log(error))
 }

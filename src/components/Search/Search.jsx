@@ -11,20 +11,17 @@ function useQuery() {
 
 const Search = () => {
     const query = useQuery()
-
+    
     const sources = query.get("sources")
-        console.log(sources)
   
     const articles = useSelector((state) => state.FetchArticlesBySource.articles?.articles) || [];
-     console.log(articles)
     const dispatch = useDispatch();
 
-    //!! ADD NEW COMPONENT FOR THIS ONE
     const articlesRenderArray = articles.map((article) => <SingleSourcedArticlesList key={article.url} {...article} /> )
 
     useEffect(() => {
 
-        dispatch(loadArticlesBySelectedSource(sources.trim().toLowerCase()))
+        dispatch(loadArticlesBySelectedSource(sources))
 
     }, [])
 

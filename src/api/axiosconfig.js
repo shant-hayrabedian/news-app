@@ -5,12 +5,13 @@ const customAxios =  axios.create({
     baseURL: 'https://newsapi.org/v2/',
     params:{
         source: "sources",
+        q: "q",
     },
-    // headers: {
-    //     Authorization: `Bearer ${environment.NEWS_API_KEY}`
-    // }
+    headers: {
+        Authorization: `${environment.NEWS_API_KEY}`
+    }
 })
-// customAxios.defaults.header.common = {Authorization: `Bearer ${environment.NEWS_API_KEY}`}
+
 
 export default customAxios
 
