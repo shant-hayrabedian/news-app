@@ -8,16 +8,14 @@ import './Home.css';
 
 //redux
 import { useSelector, useDispatch } from 'react-redux'
-import { loadFetchedNews } from '../../reducers/newsSlice/actions/actionCreators';
+import { loadFetchedNews } from '../../Features/SourcesSlice/actions/actionCreators';
 import { ConsoleSqlOutlined } from '@ant-design/icons';
-import SingleCard from '../SingleCard/SingleCard';
+import SingleSourceCard from './SingleSourceCard/SingleSourceCard';
 
 const Home = () => {
 
-    const news = useSelector((state) => state.FetchNews.news);
-   
-    console.log(news)
-
+    const news = useSelector((state) => state.FetchSources?.sources) || [];
+    
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -26,8 +24,7 @@ const Home = () => {
 
     }, [])
 
-
-    const listOfNews = news?.map((singleNews) => <SingleCard key={singleNews.id} {...singleNews} />)
+    const listOfNews = news.map((singleNews) => <SingleSourceCard key={singleNews.id} {...singleNews} />)
 
     return (
         <div>
