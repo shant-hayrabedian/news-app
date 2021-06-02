@@ -1,0 +1,16 @@
+.content{
+    margin-top: 10px;
+    margin-bottom: 30px;
+    background-color: #C4C4C4;
+}
+.img img{
+    max-width: 100%;
+    
+}
+.text{
+  padding-left: 15px;
+  padding-top: 5px;
+}
+.text h4{
+    text-align: right;
+}
