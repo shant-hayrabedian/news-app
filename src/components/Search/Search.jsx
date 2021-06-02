@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import {useLocation} from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { loadArticlesBySelectedSource } from '../../redux/features/singleSourceSlice/actionCreators';
-import SingleSourcedArticlesList from './SingleSourcedArticlesList/SingleSourcedArticlesList';
+
+import Article from './Article/Article';
+
+import 'antd/dist/antd.css';
+import s from './Search.module.css'
+import { Row, Col } from 'antd';
+import Form from './form/Form';
+import Clear from './form/Clear';
+import Sorted from './Sorted';
+
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -11,29 +20,40 @@ function useQuery() {
 
 const Search = () => {
     const query = useQuery()
-    
-    const sources = query.get("sources")
-  
-    const articles = useSelector((state) => state.FetchArticlesBySource.articles?.articles) || [];
     const dispatch = useDispatch();
 
-    const articlesRenderArray = articles.map((article) => <SingleSourcedArticlesList key={article.url} {...article} /> )
+    const sources = query.get("sources")
+
+
+    const articlesFromSource = useSelector((state) => state.FetchedArticlesBySource.articles?.articles) || [];
+    const articlesFromSearch = useSelector((state) => state.FetchedArticlesFromSearch.fromEvent?.articles) || [];
+
+    const articlesRenderArray = articlesFromSource.map((article) => <Article key={article.url} {...article} />)
+
+    const articlesFromSearchRenderArray = articlesFromSearch.map((article) => <Article key={article.url} {...article} />)
 
     useEffect(() => {
-
-        dispatch(loadArticlesBySelectedSource(sources))
+        if (sources) {
+            dispatch(loadArticlesBySelectedSource(sources))
+        }
 
     }, [])
 
     return (
-        <div style={{display: "flex", justifyContent: "space-between"  }}>
-            <div>
-            <p style={{width: "500px"}}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit sed ab inventore voluptate rerum! Facere magni eius incidunt vero facilis ducimus quisquam? Quos inventore nihil impedit illo deserunt minus consectetur molestiae nostrum facilis, deleniti ipsam doloribus recusandae rem sit dolor animi qui a temporibus tempore nam blanditiis quis architecto. Ipsam quos illum corporis? Veritatis minus possimus dicta odio quia, ipsa officia mollitia eligendi exercitationem vel placeat dolorem perferendis recusandae perspiciatis commodi, at asperiores praesentium accusamus expedita! Tenetur expedita a voluptate, voluptas explicabo perferendis provident culpa cum similique rem saepe non et illum! Nisi repellat soluta non, rerum harum unde ab?</p>
-            </div>
-            <div style={{display: "flex", flexDirection: "column"}}>
-            {articlesRenderArray}
-            </div>
+
+        <div className={s.space}>
+            <Row justify='space-around'>
+                <Col xs={24} sm={24} md={14} lg={7}>
+                    <Clear />
+                    <Form />
+                </Col>
+                <Col xs={24} sm={24} md={14} lg={15}>
+                    <Sorted />
+                    {sources ? articlesRenderArray : articlesFromSearchRenderArray}
+                </Col>
+            </Row>
         </div>
+
     )
 }
 

@@ -1,6 +1,8 @@
 import {FETCH_SOURCES} from './constants'
 
-export const initialSourcesState = {}
+export const initialSourcesState = {
+    clicked: false
+}
 
 export const fetchNews = (state = initialSourcesState, action) => {
     switch (action.type) {

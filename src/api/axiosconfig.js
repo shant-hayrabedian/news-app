@@ -5,7 +5,7 @@ const customAxios =  axios.create({
     baseURL: 'https://newsapi.org/v2/',
     params:{
         source: "sources",
-        q: "q",
+        query: 'q'
     },
     headers: {
         Authorization: `${environment.NEWS_API_KEY}`

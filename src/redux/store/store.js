@@ -3,12 +3,17 @@ import {applyMiddleware, createStore} from "redux";
 import rootReducer from "../features/rootReducer"
 import {initialSourcesState} from '../features/sourcesSlice/sourcesReducer'
 import {initialArticlesState} from '../features/singleSourceSlice/singleSourceReducer'
- 
+import {initialSearchState} from '../features/headerSearchSlice/headerSearchReducer'
+
+// import {clickedState} from '../features/singleSourceSlice/singleSourceReducer'
+
 const middleware = applyMiddleware(thunk);
 
 const initialState = {
-    FetchSources: initialSourcesState,
-    FetchArticlesBySource:initialArticlesState
+    FetchedSources: initialSourcesState,
+    FetchedArticlesBySource:initialArticlesState,
+    FetchedArticlesFromSearch: initialSearchState,
+    // Clicked: clickedState
 }
 
 
