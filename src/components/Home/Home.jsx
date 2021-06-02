@@ -29,7 +29,8 @@ const Home = () => {
     return (
         <div>
             <h2>Sources</h2>
-            <Row justify="space-around" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} >
+            <Row justify="space-around" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
+                 style={{marginLeft: '-16px', marginRight: '0px', rowGap: '0px'}}>
                 {listOfNews}
             </Row>
         </div>

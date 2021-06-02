@@ -1,9 +1,9 @@
 import axios from 'axios'
 import environment from '../environment'
 
-const customAxios =  axios.create({
+const customAxios = axios.create({
     baseURL: 'https://newsapi.org/v2/',
-    params:{
+    params: {
         source: "sources",
         q: "q",
     },

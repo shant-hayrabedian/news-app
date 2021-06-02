@@ -1,19 +1,29 @@
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import React, {useState} from "react";
 import './Header.css';
 import {SearchOutlined} from '@ant-design/icons';
 import {Input} from 'antd';
-import Search from "antd/es/input/Search";
 import { withRouter } from "react-router";
 import { useHistory } from "react-router-dom";
 
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
+
 const Header = () => {
     let history = useHistory();
+    const query = useQuery()
+
+    const q = query.get("q")
+    console.log(q);
     const [showInput, setShowInput] = useState(false);
     const click = () => {
         setShowInput(true);
     }
-    const onSearch = event => console.log(event.target.value);
+    const onSearch = (event) => {
+        // event.target.value = q
+        console.log(event.target.value);
+    }
 
 
     return (
@@ -25,9 +35,10 @@ const Header = () => {
                 <ul>
                     <li>
                         <SearchOutlined onClick={click}/>
-                        {showInput ? <Input onChange={onSearch} className="searchInput" placeholder="Search Here..." onKeyPress={(e) => {
-                            if (e.key === 'Enter') {
-                                history.push('/search');
+                        {showInput ? <Input onChange={onSearch} className="searchInput" placeholder="Search Here..." onKeyPress={(event) => {
+                            if (event.key === 'Enter') {
+                                // <Link to ={`/search?sources=${event.target.value}`} />
+                                history.push(`/search?q=${event.target.value}`);
                             }
                         }}
                         /> : null}
