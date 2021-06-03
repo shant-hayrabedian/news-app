@@ -14,7 +14,7 @@ const SingleSourceCard = (props) => {
         <Col >
 
             <Card
-                style={{ width: 300, background: '#C4C4C4', marginBottom: 48 }}
+                style={{ width: 400, background: '#C4C4C4', marginBottom: 48 }}
                 actions={[
                     <a>{category}</a>,
                     <a>{language}</a>,

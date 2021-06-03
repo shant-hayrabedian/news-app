@@ -25,7 +25,9 @@ const Header = () => {
         if(event.key === 'Enter'){
             dispatch(loadSearchBySelectedQueryParams(event.target.value))
             history.push(`/search?q=${event.target.value}`)
+            event.target.value = ''
         }
+
     }
  
     return (
