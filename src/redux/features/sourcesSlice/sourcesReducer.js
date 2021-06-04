@@ -1,7 +1,7 @@
 import {FETCH_SOURCES} from './constants'
 
 export const initialSourcesState = {
-    clicked: false
+    sources: []
 }
 
 export const fetchNews = (state = initialSourcesState, action) => {

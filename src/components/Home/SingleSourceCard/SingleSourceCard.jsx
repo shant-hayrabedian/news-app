@@ -1,6 +1,6 @@
 import { Card, Col } from 'antd';
 import { Link } from 'react-router-dom'
-
+import {countries, languages, lookup} from 'country-data'
 import '../Home.css';
 
 
@@ -16,9 +16,9 @@ const SingleSourceCard = (props) => {
             <Card
                 style={{ width: 300, background: '#C4C4C4', marginBottom: 48 }}
                 actions={[
-                    <a>{category}</a>,
-                    <a>{language}</a>,
-                    <a>{country}</a>
+                    <a>{category[0].toUpperCase() + category.substring(1)}</a>,
+                    <a>{language === 'ud' ? "Urdu" : languages[language]?.name}</a>,
+                    <a>{country === 'zh' ? "China" : countries[country.toUpperCase()]?.name}</a>
                 ]}
             >
                 <Link to={`/search?sources=${id}`} >

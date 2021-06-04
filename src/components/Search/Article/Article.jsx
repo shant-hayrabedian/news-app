@@ -10,7 +10,7 @@ const Article = ({urlToImage, title, description, publishedAt}) => {
         <Row > 
             <Col span={6}>
                 <div className={s.img}>
-                    <img src={urlToImage} />
+                    <img src={urlToImage !== "null" ? urlToImage : 'https://www.phimostop.com/wp-content/uploads/2018/09/no-image.jpg'} />
                 </div>
             </Col>
             <Col span={16} >

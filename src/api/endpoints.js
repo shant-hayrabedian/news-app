@@ -2,6 +2,6 @@ import environment from '../environment.js'
 
 export const endpoints = {
     urlSources: `/sources`,
-    urlArticles: (endpointOrID) => `/everything?sources=${endpointOrID}`,
-    urlSearchByQuery: (eventTargetValue) => `/everything?q=${eventTargetValue}`
+    urlArticles: (source, pageSize, pageNumber) => `/everything?sources=${source}&pageSize=${pageSize}&page=${pageNumber}`,
+    urlSearchByQuery: (eventTargetValue, pageSize, pageNumber) => `/everything?q=${eventTargetValue}&pageSize=${pageSize}&page=${pageNumber}`
 }

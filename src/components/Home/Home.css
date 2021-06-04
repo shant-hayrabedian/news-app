@@ -16,4 +16,19 @@
     color: black;
     line-height: 22px;
     transition: color 0.3s;
+    font-size: 19px;
 }
+
+.sourcesParagraph {
+    font-size: 30px;
+    font-weight: 400;
+}
+
+/*.ant-card-actions > li > span a:not(.ant-btn), .ant-card-actions > li > span > .anticon {*/
+/*    display: inline-block;*/
+/*    width: 100%;*/
+/*    color: black;*/
+/*    line-height: 22px;*/
+/*    transition: color 0.3s;*/
+/*    font-size: 19px;*/
+/*}*/

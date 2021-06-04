@@ -7,36 +7,18 @@ import {fetchArticlesBySelectedSource} from '../../../api/singleSourceSliceAPI'
 const stateUpdate = (newState) => {
     return {
         type: FETCH_BY_SINGLE_SELECTED_SOURCE_ARTICLES,
-        payload: newState,
+        payload: newState || [],
     }
 }
 
 //action loader
-export function loadArticlesBySelectedSource(endpointOrID) {
+export function loadArticlesBySelectedSource(source, pageSize, pageNumber) {
     return  async (dispatch, getState) => {
-       return fetchArticlesBySelectedSource(endpointOrID).then((loadedNews) => {
-                dispatch(stateUpdate(loadedNews))
+        
+       return fetchArticlesBySelectedSource(source, pageSize, pageNumber).then((loadedNews) => {
+                dispatch(stateUpdate(loadedNews?.articles))
             })
     }
 }
 
-
-// const  clickState = () => {
-//     debugger;
-//     return {
-//         type: "CLICKED",
-//         payload: true   
-//      }
-// }
-
-
-// export function click() {
-//     debugger;
-//     return (dispatch) => {
-//         debugger;
-//         return new Promise((resolve) =>{
-//             resolve(dispatch(clickState))
-//         })  
-//     }
-// }
 
