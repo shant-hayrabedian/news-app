@@ -1,4 +1,4 @@
-import {LOAD_MORE} from './constants'
+import {LOAD_MORE,RESET} from './constants'
 
 
 export const initialPageSize = {
@@ -12,6 +12,8 @@ export const loadMoreArticles = (state = initialPageSize, action) => {
     switch (action.type) {
         case LOAD_MORE:
             return {...state, page: state.page + action.payload};
+        case RESET:
+            return action.payload
         default:
             return state
     }

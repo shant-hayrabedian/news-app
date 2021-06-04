@@ -1,4 +1,4 @@
-import {LOAD_MORE} from './constants'
+import {LOAD_MORE, RESET} from './constants'
 
 
 const  updateState = (num) => {
@@ -8,8 +8,20 @@ const  updateState = (num) => {
      }
 }
 
+
+const reset = (num) => {
+    return {
+        type: RESET,
+        payload: num
+    }
+}
+
 export function updatePageSize(num) {
     return (dispatch) => {
         return dispatch(updateState(num))
     }
+}
+
+export function resetPage(num){
+    return dispatch =>  dispatch(reset(num))
 }

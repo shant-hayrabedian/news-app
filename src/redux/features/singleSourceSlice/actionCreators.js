@@ -1,4 +1,4 @@
-import {FETCH_BY_SINGLE_SELECTED_SOURCE_ARTICLES} from './constants'
+import {FETCH_BY_SINGLE_SELECTED_SOURCE_ARTICLES, TO_EMPTY_SINGLE_SOURCE} from './constants'
 import {fetchArticlesBySelectedSource} from '../../../api/singleSourceSliceAPI'
 
 
@@ -7,7 +7,14 @@ import {fetchArticlesBySelectedSource} from '../../../api/singleSourceSliceAPI'
 const stateUpdate = (newState) => {
     return {
         type: FETCH_BY_SINGLE_SELECTED_SOURCE_ARTICLES,
-        payload: newState || [],
+        payload: newState,
+    }
+}
+
+const emptyState = () =>{
+    return {
+        type:  TO_EMPTY_SINGLE_SOURCE,
+        payload: []
     }
 }
 
@@ -20,5 +27,6 @@ export function loadArticlesBySelectedSource(source, pageSize, pageNumber) {
             })
     }
 }
-
-
+export function toEmptyTheSingleSourceArray(){
+  return dispatch => dispatch(emptyState())
+}

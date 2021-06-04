@@ -1,1 +1,2 @@
 export const FETCH_SOURCES = "FETCH_ALL_SOURCES"
+export const TO_EMPTY_SOURCE = "TO_EMPTY_ARRAY"

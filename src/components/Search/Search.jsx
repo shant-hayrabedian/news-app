@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { loadArticlesBySelectedSource } from '../../redux/features/singleSourceSlice/actionCreators';
+import { loadArticlesBySelectedSource, toEmptyTheSingleSourceArray } from '../../redux/features/singleSourceSlice/actionCreators';
 
 import Article from './Article/Article';
 
@@ -14,8 +14,8 @@ import Clear from './form/Clear';
 import Sorted from './Sorted';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { loadMoreArticles } from '../../redux/features/pageSlice/pageReducer';
-import { updatePageSize } from '../../redux/features/pageSlice/actionCreators';
-import { loadSearchBySelectedQueryParams } from '../../redux/features/headerSearchSlice/actionCreators';
+import { resetPage, updatePageSize } from '../../redux/features/pageSlice/actionCreators';
+import { loadSearchBySelectedQueryParams, toEmptyTheSearchedArray } from "../../redux/features/headerSearchSlice/actionCreators";
 
 
 function useQuery() {
@@ -27,10 +27,10 @@ const Search = () => {
     const dispatch = useDispatch();
 
     const sources = query.get("sources")
-    console.log(sources)
+
     const q = query.get("q")
 
-    let page = query.get("page")
+    // let page = query.get("page")
     let pageSize = query.get("pageSize")
 
 
@@ -53,8 +53,8 @@ const Search = () => {
 
 
     //
-        // should be a separate component
-        const articlesFromSearch = useSelector((state) => state.FetchedArticlesFromSearch.fromEvent) || [];
+    // should be a separate component
+    const articlesFromSearch = useSelector((state) => state.FetchedArticlesFromSearch.fromEvent) || [];
 
     const articlesFromSearchRenderArray = <InfiniteScroll
         dataLength={articlesFromSearch.length}
@@ -66,15 +66,19 @@ const Search = () => {
 
     useEffect(() => {
         if (sources) {
+            // dispatch(toEmptyTheSearchedArray())
             dispatch(loadArticlesBySelectedSource(sources, pageSize, initialPageState))
+            // dispatch(toEmptyTheSingleSourceArray())
+            // dispatch(resetPage(1))
         }
     }, [sources, initialPageState])
-    
+
     useEffect(() => {
-        if(q){
+        if (q) {
+            // dispatch(toEmptyTheSingleSourceArray())
             dispatch(loadSearchBySelectedQueryParams(q, pageSize, initialPageState))
         }
-}, [q, initialPageState])
+    }, [q, initialPageState])
 
     return (
 

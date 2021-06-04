@@ -27,6 +27,6 @@ export function loadSearchBySelectedQueryParams(eventTargetValue, pageSize, page
 } 
 
 
-export function toEmptyTheArray(){
+export function toEmptyTheSearchedArray(){
     return dispatch => dispatch(emptyState())
 }
