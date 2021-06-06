@@ -13,7 +13,7 @@ export const loadMoreArticles = (state = initialPageSize, action) => {
         case LOAD_MORE:
             return {...state, page: state.page + action.payload};
         case RESET:
-            return action.payload
+            return {...state, page:action.payload}
         default:
             return state
     }

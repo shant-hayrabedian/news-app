@@ -5,7 +5,7 @@ import {fetchSearchBySelectedQueryParams} from "../../../api/headerSearchSliceAP
 const stateUpdate = (newState) => {
     return {
         type: FETCH_SEARCH_SOURCE_BY_QUERY_PARAMS,
-        payload: newState,
+        payload: newState || [],
     }
 }
 
@@ -18,10 +18,10 @@ const emptyState = () =>{
 }
 
 //action loader
-export function loadSearchBySelectedQueryParams(eventTargetValue, pageSize, pageNumber) {
+export function loadSearchBySelectedQueryParams(eventTargetValueForSearch, pageSize, page, sortBy) {
     return (dispatch, getState) => {
-        return fetchSearchBySelectedQueryParams(eventTargetValue, pageSize, pageNumber).then((loadedNews) => {
-            dispatch(stateUpdate(loadedNews.articles))
+        return fetchSearchBySelectedQueryParams(eventTargetValueForSearch, pageSize, page, sortBy).then((loadedNews) => {
+            dispatch(stateUpdate(loadedNews?.articles))
         })
     }
 } 

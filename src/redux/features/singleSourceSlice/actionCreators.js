@@ -7,7 +7,7 @@ import {fetchArticlesBySelectedSource} from '../../../api/singleSourceSliceAPI'
 const stateUpdate = (newState) => {
     return {
         type: FETCH_BY_SINGLE_SELECTED_SOURCE_ARTICLES,
-        payload: newState,
+        payload: newState || [],
     }
 }
 
@@ -19,10 +19,10 @@ const emptyState = () =>{
 }
 
 //action loader
-export function loadArticlesBySelectedSource(source, pageSize, pageNumber) {
+export function loadArticlesBySelectedSource(sources, pageSize, page, sortBy) {
     return  async (dispatch, getState) => {
         
-       return fetchArticlesBySelectedSource(source, pageSize, pageNumber).then((loadedNews) => {
+       return fetchArticlesBySelectedSource(sources, pageSize, page, sortBy).then((loadedNews) => {
                 dispatch(stateUpdate(loadedNews?.articles))
             })
     }

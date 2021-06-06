@@ -2,6 +2,7 @@ import environment from '../environment.js'
 
 export const endpoints = {
     urlSources: `/sources`,
-    urlArticles: (source, pageSize, pageNumber) => `/everything?sources=${source}&pageSize=${pageSize}&page=${pageNumber}`,
-    urlSearchByQuery: (eventTargetValue, pageSize, pageNumber) => `/everything?q=${eventTargetValue}&pageSize=${pageSize}&page=${pageNumber}`
+    urlArticles2: '/everything',
+    urlArticles: (source, pageSize, pageNumber, sortType) => `/everything?sources=${source}&sortBy=${sortType}&pageSize=${pageSize}&page=${pageNumber}`,
+    urlSearchByQuery: (eventTargetValue, pageSize, pageNumber, sortType) => `/everything?q=${eventTargetValue}&sortBy=${sortType}&pageSize=${pageSize}&page=${pageNumber}`
 }

@@ -23,5 +23,7 @@ export function updatePageSize(num) {
 }
 
 export function resetPage(num){
-    return dispatch =>  dispatch(reset(num))
+    return dispatch =>{  
+        return dispatch(reset(num))
+    }
 }

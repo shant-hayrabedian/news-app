@@ -15,15 +15,13 @@ import { toEmptyTheSingleSourceArray } from "../../redux/features/singleSourceSl
 import { resetPage, updatePageSize } from '../../redux/features/pageSlice/actionCreators';
 
 // import { toEmptyTheSource } from '../../redux/features/sourcesSlice/actionCreators';
+import {useQuery} from '../../functions/URLSearchParams'
 
-// function useQuery() {
-//     return new URLSearchParams(useLocation().search);
-// }
 
 const Header = () => {
     const history = useHistory()
 
-    // const query = useQuery()
+    const query = useQuery()
 
     const [showInput, setShowInput] = useState(false);
 
@@ -32,13 +30,13 @@ const Header = () => {
     }
 
     const dispatch = useDispatch()
-    // const initialPageState = useSelector((state)=> state.Page.page)
-
+    
+    const page = useSelector((state)=> state.Page.page)
 
     // const sources = query.get("sources")
     // console.log("sources", sources)
-    // const q = query.get("q")
-
+    let q = query.get("q")
+    let sort = query.get('sortBy')
     // let page = query.get("page")
     // console.log("page", page)
     // let pageSize = query.get("pageSize")
@@ -50,9 +48,17 @@ const Header = () => {
             // dispatch(toEmptyTheSingleSourceArray())
             // dispatch(toEmptyTheSource())
             history.push(`/search?q=${event.target.value}`)
-            // dispatch(toEmptyTheArray())
-            // dispatch(resetPage(1))
+            if(q){
+                dispatch(loadSearchBySelectedQueryParams(q, 5, page, sort))
+            }
+
+            dispatch(toEmptyTheSearchedArray())
+
+            if(page !== 1){
+                dispatch(resetPage(1))
+            }
         }
+
     }
    
     
@@ -61,7 +67,10 @@ const Header = () => {
     return (
         <header>
             <div className="logo">
-                <h1><Link to="/">News</Link></h1>
+                <h1 onClick={()=> {
+                    dispatch(resetPage(1))
+                    dispatch(toEmptyTheSingleSourceArray())
+                }}><Link to="/">News</Link></h1>
             </div>
             <nav>
                 <ul>
