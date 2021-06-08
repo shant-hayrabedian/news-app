@@ -6,6 +6,7 @@ import {initialArticlesState} from '../features/singleSourceSlice/singleSourceRe
 import {initialSearchState} from '../features/headerSearchSlice/headerSearchReducer'
 
 import {initialPageSize} from '../features/pageSlice/pageReducer'
+import { initialFilterState } from "../features/filterSlice/filterReducer";
 // import {clickedState} from '../features/singleSourceSlice/singleSourceReducer'
 
 const middleware = applyMiddleware(thunk);
@@ -15,6 +16,7 @@ const initialState = {
     FetchedArticlesBySource:initialArticlesState,
     FetchedArticlesFromSearch: initialSearchState,
     Page: initialPageSize,
+    Filter: initialFilterState
 }
 
 

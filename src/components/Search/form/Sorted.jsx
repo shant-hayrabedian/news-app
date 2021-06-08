@@ -13,27 +13,25 @@ const { Option } = Select;
 const Sorted = () => {
 
 
-    const [state, setstate] = useState(false)
-
-
+    const [dropDownOnLabelClick, setDropDownOnLabelClick] = useState(false)
 
     const history = useHistory()
     const query = useQuery()
     const dispatch = useDispatch()
+
     const page = useSelector(state => state.Page.page)
 
     const q = query.get('q')
     const sources = query.get('sources')
 
-    const f = useLocation()
-    console.log('useloc', f)
+
 
     // const today =  new Date().toISOString().split('T')[0];
     // const fullDate = new Date().toISOString()
     const arrBySource = useSelector(state => state.FetchedArticlesBySource.articles)
     const arrBySearch = useSelector(state => state.FetchedArticlesFromSearch.fromEvent)
 
-    const handleOnClick = (value) => {
+    const handleSortingOnChange = (value) => {
         history.push(`/search?${q ? "q" : "sources"}=${q ? q : sources}&sortBy=${value}`)
         if (q) {
             dispatch(toEmptyTheSearchedArray())
@@ -59,48 +57,29 @@ const Sorted = () => {
 
 
     return (
-        <>
-            <div>
-                <label className="label2" htmlFor="sort2"> sorted by: </label>
+        
+            <div style={{textAlign: 'right', fontWeight: 'bold' }}>
+                <label style={{fontSize: 20}} className="label2" htmlFor="sort2">Sorted by:</label>
                 <Select
-                    onDropdownVisibleChange={() => setstate(false)}
-                    onClick={() => !state ? setstate(true) : setstate(false)}
+                    onDropdownVisibleChange={() => setDropDownOnLabelClick(false)}
+                    onClick={() => !dropDownOnLabelClick ? setDropDownOnLabelClick(true) : setDropDownOnLabelClick(false)}
                     className='select2'
                     id="sort2"
                     defaultValue="popularity"
-                    style={{ width: 120, textAlign: 'left' }}
+                    style={{ width: 170, textAlign: 'left', fontSize: 18 }}
                     bordered={false}
-                    open={state}
-                    onChange={handleOnClick}
+                    open={dropDownOnLabelClick}
+                    onChange={handleSortingOnChange}
                     showArrow={false}
                 >
-                    {options.map((option) => <Option className="option" key={option.id} value={option.value}>
-                        {option.value === 'publishedAt' ? 'Published date' : option.value[0].toUpperCase() + option.value.slice(1)}
+                {options.map((option) => <Option className="option" key={option.id} value={option.value}>
+                    {option.value === 'publishedAt' ? 'Published date' : option.value[0].toUpperCase() + option.value.slice(1)}
                     </Option>
-                    )}
+                )}
 
                 </Select>
             </div>
 
-            {/* <div style={{fontWeight: 'bold' }}>
-            <form className='formselect'>
-            
-            <label className="label" htmlFor="sort" > Sorted By: 
-
-                <select  onChange={handleOnClick} className="select" id="sort" name="sort" style={{ textAlign: 'right', fontWeight: 'bold' }}>
-                
-                    {options.map((option) => <option className="option" key={option.id} value={option.value}>
-                        {     option.value === 'publishedAt' ? 'Published date' : option.value[0].toUpperCase() + option.value.slice(1)}
-                    </option>
-                    )}
-
-
-                </select>
-
-                </label>
-            </form>
-        </div> */}
-        </>
     )
 }
 

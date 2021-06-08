@@ -17,6 +17,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { loadMoreArticles } from '../../redux/features/pageSlice/pageReducer';
 import { resetPage, updatePageSize } from '../../redux/features/pageSlice/actionCreators';
 import { loadSearchBySelectedQueryParams, toEmptyTheSearchedArray } from "../../redux/features/headerSearchSlice/actionCreators";
+import { loadFetchedSources } from '../../redux/features/sourcesSlice/actionCreators';
 
 
 
@@ -92,6 +93,10 @@ const Search = () => {
             
         }
     }, [q, initialPageState])
+
+    useEffect(()=> {
+        dispatch(loadFetchedSources())
+    }, [])
 
     return (
 
