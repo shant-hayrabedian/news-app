@@ -28,11 +28,7 @@ const Home = () => {
         
     }, [sources])
 
-    // useEffect(()=> {
-    //     dispatch(toEmptyTheSingleSourceArray())
-    //     // dispatch(resetPage(1))
 
-    // }, [])
 
     const listOfSources = sources.map((singleSource) => <SingleSourceCard key={singleSource.id} {...singleSource} />)
 

@@ -2,13 +2,12 @@ import { Checkbox } from 'antd';
 import { Row, Col } from 'antd';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { hideCC, setSelectedCategoriesIDes, showCC } from '../../../redux/features/filterSlice/actionCreators';
+import { max } from '../../../lib/CONSTANTS';
+import {showCountryAndCategory, hideCountryAndCategory} from '../../../redux/features/filterSlice/actionCreators';
 import CheckboxesRender from './Checkbox/CheckboxesRender';
 
 
 const Source = () => {
-
-    // const state = useSelector(state => state.Filter.selectedCategoriesIDes)
 
     const [idOfSelected, setIdOfSelected] = useState('')
     const [showLess, setShowLess] = useState(true)
@@ -23,13 +22,11 @@ const Source = () => {
         }
     }
 
-
     function onChange(e) {
         if (e.target.checked) {
-            dispatch(hideCC())
-
+            dispatch(hideCountryAndCategory())
         } else {
-            dispatch(showCC())
+            dispatch(showCountryAndCategory()) 
         }
     }
     
@@ -44,8 +41,7 @@ const Source = () => {
     })
 
 
-
-    const max = 12
+    
 
     const sourcesRender = sources.map((source, index) => {
         if (showLess && index < max) {

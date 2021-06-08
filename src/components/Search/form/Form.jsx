@@ -11,10 +11,10 @@ import {useState} from 'react'
 
 const Form = () =>{
 
-    const sourceVisible = useSelector(state => state.Filter.sourceVisible)
     const ccVisible = useSelector(state => state.Filter.ccVisible)
-    const state = useSelector(state => state.Filter.sourceVisible2)
-   const dispatch = useDispatch()
+
+    const countryChecked = useSelector(state => state.Filter.checked.countryChecked)
+    const categoryChecked = useSelector(state => state.Filter.checked.categoryChecked)
 
   
    
@@ -23,7 +23,7 @@ const Form = () =>{
           <SearchInput/>
         { ccVisible ? <Category/> : null}
          {ccVisible ? <Country/> : null}
-        {sourceVisible === true && state === true ? <Source/> : null}  
+        {!categoryChecked && !countryChecked ? <Source/> : null}  
       </div> 
     )
 }

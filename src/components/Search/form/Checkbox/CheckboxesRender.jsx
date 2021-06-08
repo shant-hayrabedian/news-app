@@ -9,6 +9,7 @@ const CheckboxesRender = (props) => {
     return (
         
         <Col span={5}
+        style={{margin: '15px 20px 5px 20px'}}
         >
             <Checkbox
                 checked={idOfSelected === id.toString()}

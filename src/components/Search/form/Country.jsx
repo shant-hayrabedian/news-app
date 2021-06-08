@@ -2,15 +2,16 @@ import { Checkbox } from 'antd';
 import { Row, Col } from 'antd';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { hideSource, showSource, setSelectedCategoriesIDes, testing } from '../../../redux/features/filterSlice/actionCreators';
+import { countryCheckedUnchecked } from '../../../redux/features/filterSlice/actionCreators';
 import { countries } from 'country-data'
 import CheckboxesRender from './Checkbox/CheckboxesRender';
+import { countriesAbb, max } from '../../../lib/CONSTANTS';
 
 
 const Country = () => {
-    const state = useSelector(state => state.Filter.selectedCategoriesIDes)
 
     const [idOfSelected, setIdOfSelected] = useState('')
+    const [showLess, setShowLess] = useState(true)
 
     const dispatch = useDispatch()
     const toggleCheck = (e) => {
@@ -18,32 +19,22 @@ const Country = () => {
         if (idOfSelected === val) {
             setIdOfSelected('')
         } else {
-            setIdOfSelected(val) 
+            setIdOfSelected(val)
         }
     }
 
     function onChange(e) {
         if (e.target.checked) {
-            dispatch(hideSource())
-            dispatch(testing(false))
-        }
+            dispatch(countryCheckedUnchecked(true))
+        } else {
+            dispatch(countryCheckedUnchecked(false))
 
-        if (!e.target.checked) {
-            dispatch(showSource())
         }
 
     }
 
-    const countriesAbb = [
-        "ae", "ar", "at", "au", "be", "bg", "br", "sa", "za",
-        "ca", "ch", "cn", "co", "cu", "cz", "de", "eg", "se",
-        "fr", "gb", "gr", "hk", "hu", "id", "ie", "il", "in",
-        "it", "jp", "kr", "lt", "lv", "ma", "mx", "my", "ng",
-        "nl", "no", "nz", "ph", "pl", "pt", "ro", "rs", "ru",
-        "sg", "si", "sk", "th", "tr", "tw", "ua", "us", "ve"
-    ]
 
-    const countries2 = countriesAbb.map((country, index) => {
+    const countriesArray = countriesAbb.map((country, index) => {
         return {
             abbreviation: country,
             fullName: country === 'zh' ? "China" : countries[country.toUpperCase()]?.name,
@@ -51,10 +42,9 @@ const Country = () => {
         }
     })
 
-    const [showLess, setShowLess] = useState(true)
-    const max = 12
+    
 
-    const countriesRender = countries2.map((country, index) => {
+    const countriesRender = countriesArray.map((country, index) => {
         if (showLess && index < max) {
             return <CheckboxesRender key={country.id}
                 idOfSelected={idOfSelected}

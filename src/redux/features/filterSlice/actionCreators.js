@@ -1,55 +1,44 @@
 import {
     SHOW_FILTER_CC,
     HIDE_FILTER_CC,
-    HIDE_FILTER_SOURCE, 
-    SHOW_FILTER_SOURCE, 
-    SET_SELECTED_CATEGORIES_IDES
+    COUNTRY_CHECKED_UNCHECKED, 
+    CATEGORY_CHECKED_UNCHECKED, 
 } from './constants'
 
 
 // kareli a argumentnerov type-@ tal konkret componentic
+///!!! CategoryCHecked
 
-const test1 = (bool) => {
-    return { 
-        type: 'test', 
-        payload: bool
-    }
-}
-export const testing = (bool) => {
-    return dispatch => {
-        return dispatch(test1(bool))
-    }
-}
-
-
-//!!! Source
-const hideSourceAction = () => {
+const changeCategoryCheckedUnChecked = (boolean) => {
     return {
-        type: HIDE_FILTER_SOURCE,
-        payload: false
+        type:COUNTRY_CHECKED_UNCHECKED,
+        payload: boolean
     }
 }
 
-const showSourceAction = () => {
+export const categoryCheckedUnchecked = (boolean) => {
+    return dispatch => {
+        return dispatch(changeCategoryCheckedUnChecked(boolean))
+    }
+}
+//!! countryChecked
+const changeCountryCheckedUnChecked = (boolean) => {
     return {
-        type: SHOW_FILTER_SOURCE,
-        payload: true
+        type:CATEGORY_CHECKED_UNCHECKED,
+        payload: boolean
     }
 }
 
 
-export const hideSource = () => {
+export const countryCheckedUnchecked = (boolean) => {
     return dispatch => {
-        return dispatch(hideSourceAction())
-    }
-}
-export const showSource = () => {
-    return dispatch => {
-        return dispatch(showSourceAction())
+        return dispatch(changeCountryCheckedUnChecked(boolean))
     }
 }
 
-//!!!  CC
+
+
+//!!!  CcountryCATEGORY
 const hideCCAction = () => {
     return {
         type: HIDE_FILTER_CC,
@@ -64,30 +53,16 @@ const showCCAction = () => {
     }
 }
 
-export const hideCC = () => {
+export const hideCountryAndCategory = () => {
     return dispatch => {
         return dispatch(hideCCAction())
     }
 }
-export const showCC = () => {
+export const showCountryAndCategory = () => {
     return dispatch => {
         return dispatch(showCCAction())
     }
 }
 
-//!!! CHECKBOX
-
-const changeState = (value) =>{
-    return {
-        type: SET_SELECTED_CATEGORIES_IDES,
-        payload: value
-    }
-}
-
-export const setSelectedCategoriesIDes =(value) =>{
-    return dispatch => {
-        return dispatch(changeState(value))
-    }
-}
 
 

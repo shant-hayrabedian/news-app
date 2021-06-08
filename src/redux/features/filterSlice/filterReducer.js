@@ -1,35 +1,43 @@
 import {
     SHOW_FILTER_CC,
     HIDE_FILTER_CC,
-    HIDE_FILTER_SOURCE,
-    SHOW_FILTER_SOURCE,
-    SET_SELECTED_CATEGORIES_IDES
+    CATEGORY_CHECKED_UNCHECKED,
+    COUNTRY_CHECKED_UNCHECKED,
 } from './constants'
 
 export const initialFilterState = {
-    sourceVisible: true,
-    sourceVisible2: true,
     ccVisible: true,
-    selectedCategoriesIDes: ''
+    checked: {
+        categoryChecked: false,
+        countryChecked: false,
+    },
+
 }
 
 
 
 export const filterVisibilityChanger = (state = initialFilterState, action) => {
+
     switch (action.type) {
 
-        case HIDE_FILTER_SOURCE:
-            return { ...state, sourceVisible: action.payload };
-        case SHOW_FILTER_SOURCE:
-            return { ...state, sourceVisible: action.payload };
         case HIDE_FILTER_CC:
             return { ...state, ccVisible: action.payload };
         case SHOW_FILTER_CC:
             return { ...state, ccVisible: action.payload };
-        case SET_SELECTED_CATEGORIES_IDES:
-            return {...state, selectedCategoriesIDes: action.payload}
-        case "test": 
-            return {...state, sourceVisible2: action.payload} 
+        case CATEGORY_CHECKED_UNCHECKED:
+            return {
+                ...state, checked: {
+                    ...state.checked,
+                    categoryChecked: action.payload,
+                }
+            }
+        case COUNTRY_CHECKED_UNCHECKED:
+            return {
+                ...state, checked: {
+                    ...state.checked,
+                    countryChecked: action.payload
+                }
+            }
         default:
             return state
     }
