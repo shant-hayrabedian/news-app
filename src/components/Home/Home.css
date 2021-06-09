@@ -16,7 +16,8 @@
     color: black;
     line-height: 22px;
     transition: color 0.3s;
-    font-size: 19px;
+    font-size: 15px;
+    position: relative;
 }
 
 .sourcesParagraph {
@@ -24,11 +25,36 @@
     font-weight: 400;
 }
 
-/*.ant-card-actions > li > span a:not(.ant-btn), .ant-card-actions > li > span > .anticon {*/
-/*    display: inline-block;*/
-/*    width: 100%;*/
-/*    color: black;*/
-/*    line-height: 22px;*/
-/*    transition: color 0.3s;*/
-/*    font-size: 19px;*/
+.ant-card-body {
+    padding: 7px;
+}
+
+.icons {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color: black;
+    line-height: 22px;
+    transition: color 0.3s;
+    font-size: 20px;
+    padding: 7px;
+    /*background:#C4C4C4;*/
+}
+.icons > a {
+    color: black;
+
+}
+.icons > :first-child {
+    margin-right: 25px;
+}
+
+.icons > :last-child {
+    margin-left: 25px;
+}
+.icons > a:hover {
+    background-color: white;
+}
+/*.ant-card ant-card-bordered {*/
+/*    width: 396px;background: rgb(196, 196, 196);margin-bottom: 20px;height: 225px;*/
 /*}*/
+/*width: 396px;background: rgb(196, 196, 196);margin-bottom: 20px;height: 225px;*/

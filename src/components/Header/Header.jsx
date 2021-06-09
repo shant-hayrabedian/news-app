@@ -64,18 +64,15 @@ const Header = () => {
                 <h1><Link to="/">News</Link></h1>
             </div>
             <nav>
-                <ul>
-                    <li>
-                        <SearchOutlined onClick={click} />
-                        { showInput ? 
-                        
-                        <Input className="searchInput"
-                                type="text"
-                                     placeholder="Search Here..."
-                                     onKeyPress={handleOnEnterPress}
-                                     /> : null }
-                    </li>
-                </ul>
+                <SearchOutlined onClick={click} />
+                <div className="searchInput">
+                            { showInput ?
+                                <Input type="text"
+                                       placeholder="Search Here..."
+                                       onKeyPress={handleOnEnterPress}
+                                /> : null }
+                </div>
+
             </nav>
         </header>
     );

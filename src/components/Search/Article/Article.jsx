@@ -1,8 +1,13 @@
 import { Row, Col } from 'antd';
-import s from './Article.module.css';
+import s from './Article.css';
 
 
 const Article = ({urlToImage, title, description, publishedAt}) => {
+    const d = new Date(publishedAt);
+    const month = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
+    const monthDay = month[d.getMonth()];
+    const publishedAtFormatted =  monthDay + " " + new Date(publishedAt).getDate() + ", " + new Date(publishedAt).getFullYear();
     
     return (
 
@@ -17,7 +22,7 @@ const Article = ({urlToImage, title, description, publishedAt}) => {
                 <div className={s.text}>
                     <h2>{title}</h2>
                     <p>{description}</p>
-                    <h4>{publishedAt}</h4>
+                    <h4>{publishedAtFormatted}</h4>
                 </div>
             </Col>
         </Row>
