@@ -4,13 +4,15 @@ header {
     justify-content: space-around;
     align-items: center;
     overflow: hidden;
-    background-color: #C4C4C4;
+    background-color: #5F9EA0;
 }
 
 header .logo a {
-    text-decoration: none;
+    text-decoration: underline overline;
     color: black;
-    margin-right: 1350px;
+    /* text-align: right; */
+    margin: 600px;
+    font-style: italic;
 }
 
 header nav {
@@ -39,7 +41,5 @@ nav ul li a:hover {
     font-size: 36px;
 }
 
-.searchInput {
 
-}
 

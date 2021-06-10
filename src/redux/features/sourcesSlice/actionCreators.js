@@ -10,7 +10,6 @@ const stateUpdate = (newState) => {
     }
 }
 
-
 //action loader
 export function loadFetchedSources() {
 

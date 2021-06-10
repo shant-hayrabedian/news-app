@@ -3,20 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import 'antd/dist/antd.css';
-
+// import { Carousel } from 'antd';
+// import { blue } from '@ant-design/colors';
+// import { CodepenOutlined } from '@ant-design/icons';
 //redux
 import store from './redux/store/store'
 import { Provider } from 'react-redux'
-
+// import { Pagination } from 'antd';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-
       <App />
     </Provider>
-
+  {/* <div className="icons-list">
+    <CodepenOutlined /> */}
+  {/* <Pagination defaultCurrent={1} total={50} /> */}
   </React.StrictMode>,
   document.getElementById('root')
 );

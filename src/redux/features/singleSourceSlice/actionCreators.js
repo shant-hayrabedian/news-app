@@ -1,8 +1,6 @@
 import {FETCH_BY_SINGLE_SELECTED_SOURCE_ARTICLES} from './constants'
 import {fetchArticlesBySelectedSource} from '../../../api/singleSourceSliceAPI'
 
-
-
 //actions
 const stateUpdate = (newState) => {
     return {
@@ -19,7 +17,6 @@ export function loadArticlesBySelectedSource(endpointOrID) {
             })
     }
 }
-
 
 // const  clickState = () => {
 //     debugger;

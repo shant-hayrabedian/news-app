@@ -1,5 +1,48 @@
+@import "antd/dist/antd.css";
+
 .App {
   text-align: center;
   margin: 0 auto;
   max-width: 1900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Geneva;
 }
+
+.icons-list {
+  position: fixed;
+  margin-right: 6px;
+  font-size: 24px;
+  /* background: unset !important; */
+  /* background-image: unset !important; */
+  width: 0 !important;
+  height: 0 !important;
+  border-style: fixed;
+  border-width: 6px 0 6px 6px;
+  /* border-color: #00d2be transparent transparent transparent; */
+  /* transition: transform 0.3s ease-in-out !important; */
+  /* transform: rotate(45deg) !important; */
+  /* border-radius: 0 !important; */
+  left: 0;
+  top: 0%;
+}
+
+body {
+  background-color: #E0FFFF;
+}
+
+@keyframes example {
+  from {background-color: #008B8B;}
+  to {background-color: #FFFACD;}
+}
+
+/* The element to apply the animation to */
+div {
+  background-color: #E0FFFF;
+  animation-name: example;
+  animation-duration: 5s;
+}
+
+
+

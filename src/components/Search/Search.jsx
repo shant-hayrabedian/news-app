@@ -12,7 +12,7 @@ import { Row, Col } from 'antd';
 import Form from './form/Form';
 import Clear from './form/Clear';
 import Sorted from './Sorted';
-
+import GridLoader from "react-spinners/GridLoader";
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -39,9 +39,31 @@ const Search = () => {
 
     }, [])
 
-    return (
+    const [loading, setLoading] = useState(false);
 
-        <div className={s.space}>
+    useEffect(() => {
+        setLoading(true)
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000)
+    }, [])
+
+    return (
+<div className={s.space}>
+            {
+                loading ?
+                <GridLoader 
+                color={"#B9ECF0"} 
+                loading={loading} 
+                size={20}
+                // radius={2}
+                // margin={2}
+                height={10}
+                width={5}
+                />
+                :
+
+        
             <Row justify='space-around'>
                 <Col xs={24} sm={24} md={14} lg={7}>
                     <Clear />
@@ -52,9 +74,8 @@ const Search = () => {
                     {sources ? articlesRenderArray : articlesFromSearchRenderArray}
                 </Col>
             </Row>
-        </div>
-
-    )
 }
+</div>
+    )}
 
 export default Search;
