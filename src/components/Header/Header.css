@@ -61,7 +61,7 @@ nav ul li a:hover {
 
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1580px) {
     header .logo a {
         text-decoration: none;
         color: black;
@@ -71,7 +71,7 @@ nav ul li a:hover {
 
 }
 
-/*@media screen and (max-width: 1281px) {*/
+/*@media screen and (max-width: 1500px) {*/
 /*    header .logo a {*/
 /*        text-decoration: none;*/
 /*        color: black;*/
