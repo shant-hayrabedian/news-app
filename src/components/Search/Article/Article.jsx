@@ -1,5 +1,5 @@
 import { Row, Col } from 'antd';
-import s from './Article.css';
+import s from './Article.module.css';
 
 
 const Article = ({urlToImage, title, description, publishedAt}) => {
