@@ -3,28 +3,28 @@ import { Row, Col, Form } from 'antd';
 import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { categoriesData } from '../../../lib/CONSTANTS';
-import { categoryCheckedUnchecked, setCategory } from '../../../redux/features/filterSlice/actionCreators';
+import { categoryCheckedUnchecked, setCategory, setCategoryIdState } from '../../../redux/features/filterSlice/actionCreators';
 import CheckboxesRender from './Checkbox/CheckboxesRender';
 
 
 
 const Category = () => {
 
-    const [idOfSelected, setIdOfSelected] = useState('')
-    const categoryChecked = useSelector(state => state.Filter.checked.categoryChecked)
 
+    const categoryIdState = useSelector(state => state.Filter.checkBoxIdState.categoryIdState)
+    
     const dispatch = useDispatch()
 
-    const toggleCheck = (e) => {
+
+     const toggleCheck = (e) => {
         const val = e.target.value
-        if (idOfSelected === val) {
-            setIdOfSelected('')
+        if (categoryIdState === val) {
+                dispatch(setCategoryIdState(''))
         } else {
-            setIdOfSelected(val)
-
+            dispatch(setCategoryIdState(val))
         }
-
     }
+    
 
     function onChange(e) {
 
@@ -34,9 +34,7 @@ const Category = () => {
             dispatch(categoryCheckedUnchecked(false))
         }
 
-        // if(categoryChecked === false){
-        //     e.target.checked = false
-        // }
+       
     }
 
 
@@ -53,14 +51,10 @@ const Category = () => {
         <div className='item'>
             <h3 style={{ fontWeight: 'bold', fontSize: 18 }}>Category</h3>
             <Row justify='start' gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-            <Form.Item
-                name='checkbox'
-                valuePropName="checked"
-            >
-                {/* <Checkbox.Group> */}
+           
                 {categories.map((category, index) => {
                     return <CheckboxesRender key={category.id}
-                        idOfSelected={idOfSelected}
+                        idOfSelected={categoryIdState}
                         id={category.id}
                         onChange={onChange}
                         toggleCheck={toggleCheck}
@@ -68,8 +62,7 @@ const Category = () => {
                         category={category.value}
                     />
                 })}
-                {/* </Checkbox.Group> */}
-                </Form.Item>
+               
             </Row>
         </div>
     )

@@ -2,13 +2,13 @@ import {endpoints} from './endpoints'
 import customAxios from './axiosconfig'
 
 
-export function fetchDataUsingCheckboxesFromFilter(source, qFromCheckbox,country,category, pageSize, page) {
+export function fetchDataUsingCheckboxesFromFilter(source, qFromFilter,country,category, pageSize, page) {
     return customAxios({
         method: 'GET',
         url: endpoints.urlToGetArticlesFromFilter,
         params: {
             sources: source,
-            q: qFromCheckbox,        
+            q: qFromFilter,        
             country: country,
             category: category,
             pageSize: pageSize,

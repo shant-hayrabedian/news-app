@@ -5,7 +5,7 @@ import { fetchArticlesBySelectedSource } from '../../../api/singleSourceSliceAPI
 
 const updateOrderToNewestSource = (arr) => {
     return {
-        type: 'newest',
+        type: 'latest',
         payload: arr || []
     }
 }

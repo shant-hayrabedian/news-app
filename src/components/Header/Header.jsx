@@ -53,7 +53,7 @@ const Header = () => {
             history.push(`/search?q=${event.target.value}`)
             ///!! petq a hanel
             if(q){
-                if(sortOrder === "newest"){
+                if(sortOrder === "latest"){
                     dispatch(toEmptyTheSearchedArray())
                    dispatch(loadSearchBySelectedQueryParams(q, 2, page, sort))
                    dispatch(sortingSearchedFromNewest(articlesFromSearch))

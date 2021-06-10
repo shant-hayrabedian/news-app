@@ -3,7 +3,7 @@ import { LOAD_MORE, RESET } from './constants'
 
 export const initialPageSize = {
     page: 1,
-    order: "newest" //!!
+    order: "latest" //!!
 }
 
 

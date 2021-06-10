@@ -7,10 +7,48 @@ import {
     FETCH_DATA_USING_CHECKBOXES_AND_FILTER
 } from './constants'
 
+///!!! SEt_CATEGORY_COUNTRY_SOURCE_ID_STATE
+
+const  updateCategoryIdState = (val) => {
+    return {
+        type: "SET_CATEGORY_ID_STATE", 
+        payload: val
+    }
+}
+
+export const setCategoryIdState = (val) => {
+    return dispatch => {
+        return dispatch(updateCategoryIdState(val))
+    }
+}
+
+const  updateCountryIdState = (val) => {
+    return {
+        type: "SET_COUNTRY_ID_STATE", 
+        payload: val
+    }
+}
+
+export const setCountryIdState = (val) => {
+    return dispatch => {
+        return dispatch(updateCountryIdState(val))
+    }
+}
+const  updateSourceIdState = (val) => {
+    return {
+        type: "SET_SOURCE_ID_STATE", 
+        payload: val
+    }
+}
+
+export const setSourceIdState = (val) => {
+    return dispatch => {
+        return dispatch(updateSourceIdState(val))
+    }
+}
 
 
-
-///!!! reverse
+///!!! LATEST_TO_OLDEST_AND_REVERSE
 
 const updateOrderToNewestFilter= (arr) => {
     return {
@@ -26,20 +64,13 @@ export const sortingFilteredArticlesFromNewest = (arr) => {
 }
 
 
-//!!!! chi ashxatum es meki hamar
 const updateOrderToOldestFilter= (arr) => {
     return  {
         type: 'TO_OLDEST_FILTERARTICLES',
         payload: arr ,
     }
 }
-// .sort((a,b)=>{
-//     if(Date.parse(a.publishedAt)/1000 < Date.parse(b.publishedAt)/1000){
-//         return 1
-//     }else{
-//         return -1
-//     }
-// })
+
 
 export const sortingFilteredArticlesFromOldest = (arr) => {
     return dispatch =>  {
@@ -48,7 +79,7 @@ export const sortingFilteredArticlesFromOldest = (arr) => {
 }
 
 
-//!!!
+//!!! EMPTY ARR
     const emptyTheArray =() => {
         return {
             type: "TO_EMPTY_THE_ARTICLESFROMFILTER",
@@ -59,7 +90,7 @@ export const sortingFilteredArticlesFromOldest = (arr) => {
         return dispatch => dispatch(emptyTheArray())
     }
 
-//!!!!
+//!!!! LOAD MAIN DATA
 const updateArticlesFromFilterState = (newState) => {
     return {
         type: FETCH_DATA_USING_CHECKBOXES_AND_FILTER,
@@ -67,9 +98,9 @@ const updateArticlesFromFilterState = (newState) => {
     }
 }
 
-export function loadDatabyCheckboxes(source, qFromCheckbox,country,category, pageSize, page){
+export function loadDatabyCheckboxes(source, qFromFilter,country,category, pageSize, page){
     return (dispatch,getState) => {
-        return fetchDataUsingCheckboxesFromFilter(source, qFromCheckbox,country,category, pageSize, page)
+        return fetchDataUsingCheckboxesFromFilter(source, qFromFilter,country,category, pageSize, page)
                 .then((loadedNews)=> {
                     dispatch(updateArticlesFromFilterState(loadedNews?.articles))
                 })
@@ -111,9 +142,10 @@ export const countryCheckedUnchecked = (boolean) => {
 }
 
 
-///!!  ADD SOURCE CHECKED
+///!!  ADD SOURCE CHECKED IF NEEDED
 
-//!!!  CountryCATEGORY hide show
+
+//!!!  COUNTRY_AND_CATEGORY hide show
 const hideCCAction = () => {
     return {
         type: HIDE_FILTER_CC,

@@ -13,8 +13,12 @@ export const initialFilterState = {
         countryChecked: false,
         sourceChecked: false,
     },
-    articlesFromFilter: [],//source,
-    //country uncheck country to mna// ete country click a exac exel, datarki nor category 
+    articlesFromFilter: [],
+    checkBoxIdState: {
+        categoryIdState: '',
+        countryIdState: '',
+        sourceIdState: ''
+    }
 }
 
 
@@ -31,32 +35,19 @@ export const filterVisibilityChanger = (state = initialFilterState, action) => {
             return { ...state, articlesFromFilter: [...state.articlesFromFilter, ...action.payload] }
         case 'TO_OLDEST_FILTERARTICLES':
             return { ...state, articlesFromFilter: [...state.articlesFromFilter, ...action.payload] }
-        // case "FETCH_DATA_AND_PUT_IN_SOURCE":
-        //     return {
-        //         ...state, articlesFromFilter: {
-        //             ...state.articlesFromFilter,
-        //             source: [...state.articlesFromFilter.source, ...action.payload]
 
-        //         }
-        //     }
-        // case "FETCH_DATA_AND_PUT_IN_COUNTRY":
-        //     return {
-        //         ...state, articlesFromFilter: {
-        //             ...state.articlesFromFilter,
-        //             country: [...state.articlesFromFilter.country, ...action.payload]
-        //         }
-        //     }
-        // case "FETCH_DATA_AND_PUT_IN_CATEGORY":
-        //     return {
-        //         ...state, articlesFromFilter: {
-        //             ...state.articlesFromFilter,
-        //             category: [...state.articlesFromFilter.category, ...action.payload]
-        //         }
-        //     }
+
+        case "SET_CATEGORY_ID_STATE":
+            return { ...state, checkBoxIdState: { ...state.checkBoxIdState, categoryIdState: action.payload } }
+        case "SET_COUNTRY_ID_STATE":
+            return { ...state, checkBoxIdState: { ...state.checkBoxIdState, countryIdState: action.payload } }
+        case "SET_SOURCE_ID_STATE":
+            return { ...state, checkBoxIdState: { ...state.checkBoxIdState, sourceIdState: action.payload } }
+
         case HIDE_FILTER_CC:
             return { ...state, ccVisible: action.payload, checked: { ...state.checked } }; //!!
         case SHOW_FILTER_CC:
-            return { ...state, ccVisible: action.payload, checked: { ...state.checked} }; //!!
+            return { ...state, ccVisible: action.payload, checked: { ...state.checked } }; //!!
         case CATEGORY_CHECKED_UNCHECKED:
             return {
                 ...state, checked: {

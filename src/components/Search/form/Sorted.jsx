@@ -51,19 +51,19 @@ const Sorted = () => {
 
    
     const sortingRenderedArrayOnChange = (e) => {
-            if(e === 'latest'){
+            if(e === 'oldest'){
                 dispatch(changeOrder('oldest'))
             }else{
-                dispatch(changeOrder('newest'))
+                dispatch(changeOrder('latest'))
             }
     }
 
 
     const options = [{
-        value: 'newest',
+        value: 'latest',
         id: 1
     }, {
-        value: 'latest',
+        value: 'oldest',
         id: 2
     }]
     return (
@@ -78,7 +78,7 @@ const Sorted = () => {
                 }}
                 className='select2'
                 id="sort2"
-                defaultValue="newest"
+                defaultValue="latest"
                 style={{ width: 170, textAlign: 'left', fontSize: 18 }}
                 bordered={false}
                 open={dropDownOnLabelClick}

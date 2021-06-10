@@ -37,8 +37,7 @@ const CheckboxesRender = (props) => {
 
     const location = useLocation()
 
-    const [countryState, setCountryState] = useState([])
-    // const [categoryState, setCategoryState] = useState('')
+ 
 
 
 
@@ -62,14 +61,10 @@ const CheckboxesRender = (props) => {
             } else if (category) {
                 history.push(`/search?${countryCodeFromQuery ? "country=" + countryCodeFromQuery : ''}`)
             }
-            // else if(source){
-            //     history.push(``)
-            // }
+         
         }
 
-        // if(!e.target.checked && !e.target.checked){
-        //     history.push(`/search`)  
-        // }
+   
 
 
 
@@ -83,27 +78,22 @@ const CheckboxesRender = (props) => {
         <Col span={5}
             style={{ margin: '15px 20px 5px 20px' }}
         >
+
             <Checkbox
                 checked={idOfSelected === id.toString()}
                 value={id}
                 onChange={(e) => {
                     onChange(e)
-
                 }}
                 onClick={(e) => {
                     toggleCheck(e)
-                    // if (e.target.checked) {
-                    // dispatch(changeOrder('newest'))
-
+                    // dispatch(changeOrder('latest'))
                     pushUrl(e, sourceQuery, countryCode, category);
                     dispatch(toEmptyTheSingleSourceArray())
                     dispatch(toEmptyTheSearchedArray())
                     dispatch(toEmptyTheArrayFromFilter());
                     dispatch(resetPage(1))
 
-                    // }
-                    // clicked(e, countryCode, category)
-                    // clicked(null, sourceQuery, countryCode, category)
                 }}>
                 {name}
             </Checkbox>

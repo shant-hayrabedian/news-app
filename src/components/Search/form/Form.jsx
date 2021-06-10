@@ -7,7 +7,7 @@ import Source from './Source';
 import SearchInput from './SearchInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRef, useState } from 'react'
-import { categoryCheckedUnchecked, showCountryAndCategory } from '../../../redux/features/filterSlice/actionCreators';
+import { categoryCheckedUnchecked, countryCheckedUnchecked, setCategoryIdState, setCountryIdState, setSourceIdState, showCountryAndCategory } from '../../../redux/features/filterSlice/actionCreators';
 import { useHistory } from 'react-router';
 
 const BigForm = () => {
@@ -20,6 +20,7 @@ const BigForm = () => {
   const dispatch = useDispatch()
 
   const [form] = Form.useForm();
+  // const [idOfSelected, setIdOfSelected] = useState('')
 
   // const resetFilter = () => {
   //   form.resetFields()
@@ -27,7 +28,7 @@ const BigForm = () => {
   // const onFinish = (values) => {
   //   console.log("recived values of form", values)
   // }
-  
+
   const history = useHistory()
 
   return (
@@ -36,25 +37,29 @@ const BigForm = () => {
       <Button onClick={(e) => {
         form.resetFields()
         history.push(`/search`)
-        dispatch(categoryCheckedUnchecked(false))
 
+
+        dispatch(setCategoryIdState(''))
+        dispatch(setCountryIdState(''))
+        dispatch(setSourceIdState(''))
+        dispatch(showCountryAndCategory())
+        dispatch(categoryCheckedUnchecked(false))
+        dispatch(countryCheckedUnchecked(false))
       }}>Clear</Button>
+
       <Form
         className="items"
         name="form"
         form={form}
-        // onFinish={onFinish}
-        initialValues={{
-          'checkbox': 'unchecked'
-        }}
-      >
+      // onFinish={onFinish}
 
+      >
         <SearchInput />
         {ccVisible ? <Category /> : null}
 
         {ccVisible ? <Country /> : null}
         {!categoryChecked && !countryChecked ? <Source /> : null}
-        </Form>
+      </Form>
 
     </div>
     // </div> 

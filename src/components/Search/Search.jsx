@@ -38,18 +38,11 @@ const Search = () => {
     //  console.log(page)
     let sort = query.get('sortBy')
 
-    // console.log(sort)
-    // console.log(sort)
-    // const today = new Date().toISOString().split('.')[0];
-    // const fullDate = new Date().toISOString()
-    // console.log(today)
+
     const initialPageState = useSelector((state) => state.Page.page)
 
-    // const test = useSelector((state) => console.log(state))
 
-    const pageState = useSelector((state) => state.Page)
     const sortOrder = useSelector(state => state.Page.order)
-    console.log(sortOrder)
     //shouldbe a separateComponent
     const stat = useSelector(state => console.log(state))
 
@@ -73,21 +66,10 @@ const Search = () => {
 
     ////!!
 
-    // const allArticles = articlesFromSource.concat(articlesFromSearch).concat(articlesFromFilter)
-
-
-    // const magicFunctionForSource = (order, article)=> {
-    //     if(order === 'newest'){
-    //         dispatch(toEmptyTheSingleSourceArray())
-    //         dispatch(sortingSourcesFromNewest(articlesState))
-    //     }else{
-
-    //     }
-    // }
 
     const magicFunction = (order, articlesState) => {
 
-        if (order === "newest") {
+        if (order === "latest") {
             if (articlesState === articlesFromSource) {
                 dispatch(toEmptyTheSingleSourceArray())
                 dispatch(sortingSourcesFromNewest(articlesState))
@@ -112,25 +94,10 @@ const Search = () => {
     const sourceFromFilter = query.get("source")
     const countryFromFilter = query.get("country")
     const categoryFromFilter = query.get("category")
-    const sourceChecked = useSelector((state) => state.Filter.checked)
+    const qFromFilter = query.get('qFromFilter')
 
-    // const magicFunctionforFiltering = (order, articleState) => {
-    //     if (order === "newest") {
-    //         if (articleState === articlesFromFilter) {
-    //             dispatch(toEmptyTheArrayFromFilter())
-    //             dispatch(sortingFilteredArticlesFromNewest(articleState))
-
-    //         } else {
-    //             //!! chi ashxatum esi 
-    //             if (articleState === articlesFromFilter) {
-    //                 dispatch(toEmptyTheArrayFromFilter())
-    //                 dispatch(sortingFilteredArticlesFromOldest(articleState))
-    //             }
-    //         }
-    //     }
-    // }
     const magicFunctionforFiltering = (order, articlesState) => {
-        if (order === "newest") {
+        if (order === "latest") {
             dispatch(toEmptyTheArrayFromFilter())
 
             dispatch(sortingFilteredArticlesFromNewest(articlesState.sort((a, b) => {
@@ -152,36 +119,62 @@ const Search = () => {
         }
     }
 
-    useEffect(() => {
-        if (sourceFromFilter) {
-            dispatch(toEmptyTheArrayFromFilter())
-            dispatch(loadDatabyCheckboxes(sourceFromFilter, null, null, null, null, initialPageState))
-            magicFunctionforFiltering(sortOrder, articlesFromFilter)
-        }
-    }, [sourceFromFilter, initialPageState, sortOrder])
+    // useEffect(() => {
+    //     if (sourceFromFilter) {
+    //         dispatch(toEmptyTheArrayFromFilter())
+    //         dispatch(loadDatabyCheckboxes(sourceFromFilter, null, null, null, null, initialPageState))
+    //         magicFunctionforFiltering(sortOrder, articlesFromFilter)
+    //     }
+    // }, [sourceFromFilter, initialPageState, sortOrder])
 
-    //    dispatch(toEmptyTheArrayFromFilter())
 
-    useEffect(() => {
-        if (countryFromFilter) {
-            console.log(countryFromFilter, 'countryFromFilter')
-            dispatch(toEmptyTheArrayFromFilter())
-            dispatch(loadDatabyCheckboxes(null, null, countryFromFilter, categoryFromFilter ? categoryFromFilter : null, null, initialPageState))
-            magicFunctionforFiltering(sortOrder, articlesFromFilter)
-        }
 
-    }, [countryFromFilter, initialPageState, sortOrder])
 
     useEffect(() => {
-        if (categoryFromFilter) {
-            console.log(categoryFromFilter, "categoryFromFilter")
+        if (categoryFromFilter || countryFromFilter || qFromFilter || sourceFromFilter) {
             dispatch(toEmptyTheArrayFromFilter())
-            dispatch(loadDatabyCheckboxes(null, null, countryFromFilter ? countryFromFilter : null, categoryFromFilter, null, initialPageState))
+            dispatch(loadDatabyCheckboxes(sourceFromFilter ? sourceFromFilter : null,
+                                            qFromFilter ? qFromFilter : null,
+                                             countryFromFilter ? countryFromFilter : null,
+                                                 categoryFromFilter ? categoryFromFilter : null,
+                                                     null,
+                                                  initialPageState))
             magicFunctionforFiltering(sortOrder, articlesFromFilter)
         }
 
-    }, [categoryFromFilter, initialPageState, sortOrder])
+    }, [categoryFromFilter, countryFromFilter, qFromFilter, sourceFromFilter, initialPageState, sortOrder])
 
+    // useEffect(() => {
+    //     if (countryFromFilter) {
+    //         console.log(countryFromFilter, 'countryFromFilter')
+    //         dispatch(toEmptyTheArrayFromFilter())
+    //         dispatch(loadDatabyCheckboxes(null, null, countryFromFilter, categoryFromFilter ? categoryFromFilter : null, null, initialPageState))
+    //         magicFunctionforFiltering(sortOrder, articlesFromFilter)
+    //     }
+
+    // }, [countryFromFilter, initialPageState, sortOrder])
+
+    // useEffect(() => {
+    //     if (categoryFromFilter) {
+    //         console.log(categoryFromFilter, "categoryFromFilter")
+    //         dispatch(toEmptyTheArrayFromFilter())
+    //         dispatch(loadDatabyCheckboxes(null, null, countryFromFilter ? countryFromFilter : null, categoryFromFilter, null, initialPageState))
+    //         magicFunctionforFiltering(sortOrder, articlesFromFilter)
+    //     }
+
+    // }, [categoryFromFilter, initialPageState, sortOrder])
+
+
+    // useEffect(()=> {
+    //     if(qFromFilter){
+    //         console.log(q, 'qqqqqq')
+    //         dispatch(toEmptyTheArrayFromFilter())
+    //         dispatch(loadDatabyCheckboxes(null, qFromFilter, countryFromFilter ? countryFromFilter : null, categoryFromFilter ? categoryFromFilter: null, null, initialPageState))
+    //         magicFunctionforFiltering(sortOrder, articlesFromFilter)
+    //     }
+    // },[qFromFilter, initialPageState, sortOrder])
+
+    ///!!!
     // useEffect(()=> {
     //     if(categoryFromFilter && countryFromFilter ){
     //         console.log(categoryFromFilter, countryFromFilter)
