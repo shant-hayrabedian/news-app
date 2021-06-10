@@ -103,7 +103,7 @@ const Country = () => {
             <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
             {/* <Form.Item
                 name='checkbox-group-country'
-                valuePropName="checked"
+                valueProp.Name="checked"
             > */}
             {/* <Checkbox.Group > */}
                 {countriesRender}

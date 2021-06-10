@@ -5,6 +5,7 @@ import '../Home.css';
 import { resetPage } from '../../../redux/features/pageSlice/actionCreators';
 import { toEmptyTheSingleSourceArray } from '../../../redux/features/singleSourceSlice/actionCreators';
 import { useDispatch } from 'react-redux';
+import { showCountryAndCategory, toEmptyTheArrayFromFilter } from '../../../redux/features/filterSlice/actionCreators';
 
 
 
@@ -33,7 +34,8 @@ const SingleSourceCard = (props) => {
                         onClick={()=> {
                             dispatch(resetPage(1))
                             dispatch(toEmptyTheSingleSourceArray())
-
+                            dispatch(showCountryAndCategory())
+                            dispatch(toEmptyTheArrayFromFilter())
                         }}
                     />
                 </Link>

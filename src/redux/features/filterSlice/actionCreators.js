@@ -8,49 +8,58 @@ import {
 } from './constants'
 
 
-//!!! queries
 
-const updateSourceQuery = (source) => {
+
+///!!! reverse
+
+const updateOrderToNewestFilter= (arr) => {
     return {
-        type: "SET_SOURCEQUERY",
-        payload: source
+        type: 'TO_NEWEST_FILTERARTICLES',
+        payload: arr || []
     }
 }
 
-export  function setSourceQuery (source){
+export const sortingFilteredArticlesFromNewest = (arr) => {
     return dispatch => {
-        return dispatch(updateSourceQuery(source))
-    }
-
-}
-const updateCountryCode = (country) => {
-    return {
-        type: "SET_COUNTRYCODE",
-        payload: country
+        return dispatch(updateOrderToNewestFilter(arr))
     }
 }
-export  function setCountryCode (country){
-    return dispatch => {
-        return dispatch(updateCountryCode(country))
-    }
 
-}
 
-const updateCategory = (category) => {
-    return {
-        type: "SET_CATEGORY",
-        payload: category
+//!!!! chi ashxatum es meki hamar
+const updateOrderToOldestFilter= (arr) => {
+    return  {
+        type: 'TO_OLDEST_FILTERARTICLES',
+        payload: arr ,
     }
 }
-export  function setCategory (category){
-    return dispatch => {
-        return dispatch(updateCategory(category))
-    }
+// .sort((a,b)=>{
+//     if(Date.parse(a.publishedAt)/1000 < Date.parse(b.publishedAt)/1000){
+//         return 1
+//     }else{
+//         return -1
+//     }
+// })
 
+export const sortingFilteredArticlesFromOldest = (arr) => {
+    return dispatch =>  {
+        return dispatch(updateOrderToOldestFilter(arr))
+    }
 }
 
 
 //!!!
+    const emptyTheArray =() => {
+        return {
+            type: "TO_EMPTY_THE_ARTICLESFROMFILTER",
+            payload: []
+        }
+    }
+    export function toEmptyTheArrayFromFilter() {
+        return dispatch => dispatch(emptyTheArray())
+    }
+
+//!!!!
 const updateArticlesFromFilterState = (newState) => {
     return {
         type: FETCH_DATA_USING_CHECKBOXES_AND_FILTER,
@@ -68,9 +77,6 @@ export function loadDatabyCheckboxes(source, qFromCheckbox,country,category, pag
 }
 
 //!!!
-
-
-
 
 
 
@@ -105,8 +111,9 @@ export const countryCheckedUnchecked = (boolean) => {
 }
 
 
+///!!  ADD SOURCE CHECKED
 
-//!!!  CcountryCATEGORY
+//!!!  CountryCATEGORY hide show
 const hideCCAction = () => {
     return {
         type: HIDE_FILTER_CC,

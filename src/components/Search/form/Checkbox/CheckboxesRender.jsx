@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Checkbox } from 'antd';
 import { Row, Col, Form } from 'antd';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { useQuery } from '../../../../functions/URLSearchParams';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCategory, setSourceQuery, setCountryCode } from '../../../../redux/features/filterSlice/actionCreators';
+import { setCategory, setSourceQuery, setCountryCode, toEmptyTheArrayFromFilter } from '../../../../redux/features/filterSlice/actionCreators';
+import { changeOrder, resetPage } from '../../../../redux/features/pageSlice/actionCreators';
+import { toEmptyTheSingleSourceArray } from '../../../../redux/features/singleSourceSlice/actionCreators';
+import { toEmptyTheSearchedArray } from '../../../../redux/features/headerSearchSlice/actionCreators';
 
 const CheckboxesRender = (props) => {
 
@@ -23,56 +26,83 @@ const CheckboxesRender = (props) => {
     } = props
     // console.log(sourceQuery, countryCode, category)
     const history = useHistory()
-
     const query = useQuery()
 
     const source = query.get('source')
 
-    const countryC = query.get('country')
-    const categor = query.get('category')
+    const countryCodeFromQuery = query.get('country')
+    const categoryFromQuery = query.get('category')
     // console.log(source)
     const dispatch = useDispatch()
 
-        const pushUrl = (e, sourceQuery, countryCode, category) => {
-            if(countryChecked && categoryChecked){
-                history.push(`/search?country=${countryCode}&category=${category}`)
-            }else if(countryCode){
-                history.push(`/search?country=${countryCode}`)
-            }else if(category){
-                history.push(`/search?category=${category}`)
-            } else{
+    const location = useLocation()
+
+    const [countryState, setCountryState] = useState([])
+    // const [categoryState, setCategoryState] = useState('')
+
+
+
+
+    const pushUrl = (e, sourceQuery, countryCode, category) => {
+
+
+        if (e.target.checked) {
+            if (countryCode) {
+                history.push(`/search?country=${countryCode}${categoryFromQuery ? '&category=' + categoryFromQuery : ''}`)
+            } else if (category) {
+                history.push(`/search?category=${category}${countryCodeFromQuery ? '&country=' + countryCodeFromQuery : ''}`)
+
+            } else {
                 history.push(`/search?source=${sourceQuery}`)
 
             }
-        
-
-        }
-
-        const clicked =(e, sourceQuery, countryCode, category) => {
-            if(countryChecked === true && categoryChecked === true){
-                history.push(`/search?country=${countryCode}&category=${category}`)
+        } else {
+            if (countryCode) {
+                history.push(`/search?${categoryFromQuery ? "category=" + categoryFromQuery : ''}`)
+            } else if (category) {
+                history.push(`/search?${countryCodeFromQuery ? "country=" + countryCodeFromQuery : ''}`)
             }
+            // else if(source){
+            //     history.push(``)
+            // }
         }
 
+        // if(!e.target.checked && !e.target.checked){
+        //     history.push(`/search`)  
+        // }
 
-   
+
+
+    }
+
+
+
 
     return (
-        
+
         <Col span={5}
             style={{ margin: '15px 20px 5px 20px' }}
         >
             <Checkbox
                 checked={idOfSelected === id.toString()}
                 value={id}
-                onChange={(e)=> {
+                onChange={(e) => {
                     onChange(e)
+
                 }}
-                onClick={(e)=> {
+                onClick={(e) => {
                     toggleCheck(e)
-                    if(e.target.checked){
-                    pushUrl(null, sourceQuery, countryCode, category)
-                }
+                    // if (e.target.checked) {
+                    // dispatch(changeOrder('newest'))
+
+                    pushUrl(e, sourceQuery, countryCode, category);
+                    dispatch(toEmptyTheSingleSourceArray())
+                    dispatch(toEmptyTheSearchedArray())
+                    dispatch(toEmptyTheArrayFromFilter());
+                    dispatch(resetPage(1))
+
+                    // }
+                    // clicked(e, countryCode, category)
                     // clicked(null, sourceQuery, countryCode, category)
                 }}>
                 {name}

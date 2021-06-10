@@ -11,6 +11,7 @@ import CheckboxesRender from './Checkbox/CheckboxesRender';
 const Category = () => {
 
     const [idOfSelected, setIdOfSelected] = useState('')
+    const categoryChecked = useSelector(state => state.Filter.checked.categoryChecked)
 
     const dispatch = useDispatch()
 
@@ -32,7 +33,12 @@ const Category = () => {
         } else {
             dispatch(categoryCheckedUnchecked(false))
         }
+
+        // if(categoryChecked === false){
+        //     e.target.checked = false
+        // }
     }
+
 
 
     const categories = categoriesData.map((category, index) => {
@@ -47,10 +53,10 @@ const Category = () => {
         <div className='item'>
             <h3 style={{ fontWeight: 'bold', fontSize: 18 }}>Category</h3>
             <Row justify='start' gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-            {/* <Form.Item
-                name='checkbox-group-category'
+            <Form.Item
+                name='checkbox'
                 valuePropName="checked"
-            > */}
+            >
                 {/* <Checkbox.Group> */}
                 {categories.map((category, index) => {
                     return <CheckboxesRender key={category.id}
@@ -63,7 +69,7 @@ const Category = () => {
                     />
                 })}
                 {/* </Checkbox.Group> */}
-                {/* </Form.Item> */}
+                </Form.Item>
             </Row>
         </div>
     )

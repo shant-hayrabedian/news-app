@@ -8,6 +8,7 @@ import { loadArticlesBySelectedSource, reverseArrFromSource, sortingFromNewest, 
 
 import { Select } from 'antd'
 import { changeOrder } from '../../../redux/features/pageSlice/actionCreators';
+import { toEmptyTheArrayFromFilter } from '../../../redux/features/filterSlice/actionCreators';
 
 const { Option } = Select;
 
@@ -65,7 +66,6 @@ const Sorted = () => {
         value: 'latest',
         id: 2
     }]
-
     return (
 
         <div style={{ textAlign: 'right', fontWeight: 'bold' }}>
@@ -74,6 +74,7 @@ const Sorted = () => {
                 onDropdownVisibleChange={() => setDropDownOnLabelClick(false)}
                 onClick={(e) => {
                     !dropDownOnLabelClick ? setDropDownOnLabelClick(true) : setDropDownOnLabelClick(false);
+
                 }}
                 className='select2'
                 id="sort2"

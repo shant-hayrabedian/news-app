@@ -15,6 +15,7 @@ import { sortingSourcesFromNewest, sortingSourcesFromOldest, toEmptyTheSingleSou
 import { resetPage, updatePageSize } from '../../redux/features/pageSlice/actionCreators';
 
 import {useQuery} from '../../functions/URLSearchParams'
+import { showCountryAndCategory, toEmptyTheArrayFromFilter } from "../../redux/features/filterSlice/actionCreators";
 
 
 const Header = () => {
@@ -33,8 +34,8 @@ const Header = () => {
     const page = useSelector((state)=> state.Page.page)
     const sortOrder = useSelector((state)=> state.Page.order)
     const articlesFromSearch = useSelector((state) => state.FetchedArticlesFromSearch.fromEvent) || []
-    console.log(sortOrder)
-    console.log(articlesFromSearch)
+    // console.log(sortOrder)
+    // console.log(articlesFromSearch)
     // const sources = query.get("sources")
     // console.log("sources", sources)
     let q = query.get("q")
@@ -63,6 +64,8 @@ const Header = () => {
             }
         
             dispatch(toEmptyTheSearchedArray())
+            dispatch(toEmptyTheArrayFromFilter())
+            dispatch(showCountryAndCategory())
 
             if(page !== 1){
                 dispatch(resetPage(1))
@@ -81,6 +84,7 @@ const Header = () => {
                     dispatch(resetPage(1))
                     dispatch(toEmptyTheSingleSourceArray())
                     dispatch(toEmptyTheSearchedArray())
+                    dispatch(toEmptyTheArrayFromFilter())
                 }}><Link to="/">News</Link></h1>
             </div>
             <nav>

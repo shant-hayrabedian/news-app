@@ -13,13 +13,8 @@ export const initialFilterState = {
         countryChecked: false,
         sourceChecked: false,
     },
-    articlesFromFilter: [],
-    queries: {
-        sourceQuery: '',
-        countryCode: '',
-        category: '',
-    }
-
+    articlesFromFilter: [],//source,
+    //country uncheck country to mna// ete country click a exac exel, datarki nor category 
 }
 
 
@@ -27,18 +22,41 @@ export const initialFilterState = {
 export const filterVisibilityChanger = (state = initialFilterState, action) => {
 
     switch (action.type) {
+
         case FETCH_DATA_USING_CHECKBOXES_AND_FILTER:
-            return { ...state, articlesFromFilter: [...action.payload, ...state.articlesFromFilter] }
-        case "SET_SOURCEQUERY":
-            return {...state, queries: {...state.queries, sourceQuery: action.payload}}
-        case "SET_COUNTRYCODE":
-            return {...state, queries: {...state.queries, countryCode: action.payload}}
-        case "SET_CATEGORY":
-            return {...state, queries: {...state.queries, category: action.payload}}
+            return { ...state, articlesFromFilter: [...state.articlesFromFilter, ...action.payload] }
+        case "TO_EMPTY_THE_ARTICLESFROMFILTER":
+            return { ...state, articlesFromFilter: action.payload }
+        case "TO_NEWEST_FILTERARTICLES":
+            return { ...state, articlesFromFilter: [...state.articlesFromFilter, ...action.payload] }
+        case 'TO_OLDEST_FILTERARTICLES':
+            return { ...state, articlesFromFilter: [...state.articlesFromFilter, ...action.payload] }
+        // case "FETCH_DATA_AND_PUT_IN_SOURCE":
+        //     return {
+        //         ...state, articlesFromFilter: {
+        //             ...state.articlesFromFilter,
+        //             source: [...state.articlesFromFilter.source, ...action.payload]
+
+        //         }
+        //     }
+        // case "FETCH_DATA_AND_PUT_IN_COUNTRY":
+        //     return {
+        //         ...state, articlesFromFilter: {
+        //             ...state.articlesFromFilter,
+        //             country: [...state.articlesFromFilter.country, ...action.payload]
+        //         }
+        //     }
+        // case "FETCH_DATA_AND_PUT_IN_CATEGORY":
+        //     return {
+        //         ...state, articlesFromFilter: {
+        //             ...state.articlesFromFilter,
+        //             category: [...state.articlesFromFilter.category, ...action.payload]
+        //         }
+        //     }
         case HIDE_FILTER_CC:
-            return { ...state, ccVisible: action.payload, checked: {...state.checked, sourceChecked: action.payload2} }; //!!
+            return { ...state, ccVisible: action.payload, checked: { ...state.checked } }; //!!
         case SHOW_FILTER_CC:
-            return { ...state, ccVisible: action.payload, checked: {...state.checked, sourceChecked: action.payload2} }; //!!
+            return { ...state, ccVisible: action.payload, checked: { ...state.checked} }; //!!
         case CATEGORY_CHECKED_UNCHECKED:
             return {
                 ...state, checked: {

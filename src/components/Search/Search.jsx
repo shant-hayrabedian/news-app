@@ -18,7 +18,7 @@ import { loadMoreArticles } from '../../redux/features/pageSlice/pageReducer';
 import { resetPage, updatePageSize } from '../../redux/features/pageSlice/actionCreators';
 import { loadSearchBySelectedQueryParams, reverseArrFromSearch, sortingSearchedFromNewest, sortingSearchedFromOldest, toEmptyTheSearchedArray } from "../../redux/features/headerSearchSlice/actionCreators";
 import { loadFetchedSources } from '../../redux/features/sourcesSlice/actionCreators';
-import { loadDatabyCheckboxes } from '../../redux/features/filterSlice/actionCreators';
+import { loadDatabyCheckboxes, sortingFilteredArticlesFromNewest, sortingFilteredArticlesFromOldest, toEmptyTheArrayFromFilter } from '../../redux/features/filterSlice/actionCreators';
 
 
 // console.log(today)
@@ -30,13 +30,14 @@ const Search = () => {
 
     const sources = query.get("sources")
     const q = query.get("q")
-    console.log(q)
+    // console.log(q)
     // let page = query.get("page")
     let pageSize = query.get("pageSize")
     // console.log(pageSize)
     let page = query.get('page')
     //  console.log(page)
     let sort = query.get('sortBy')
+
     // console.log(sort)
     // console.log(sort)
     // const today = new Date().toISOString().split('.')[0];
@@ -48,7 +49,7 @@ const Search = () => {
 
     const pageState = useSelector((state) => state.Page)
     const sortOrder = useSelector(state => state.Page.order)
-
+    console.log(sortOrder)
     //shouldbe a separateComponent
     const stat = useSelector(state => console.log(state))
 
@@ -58,26 +59,21 @@ const Search = () => {
 
 
     // should be a separate component
+
     const articlesFromSearch = useSelector((state) => state.FetchedArticlesFromSearch.fromEvent) || []
 
     const articlesFromSearchRenderArray = articlesFromSearch.map((article, index) => <Article key={index} {...article} />)
 
 
 
+    ////!!
+    const articlesFromFilter = useSelector((state) => state.Filter.articlesFromFilter) || []
+
+    const articlesFromFilterRrender = articlesFromFilter.map((article, index) => <Article key={index} {...article} />)
 
     ////!!
-    const articlesFromFilter = useSelector((state) => state.Filter.articlesFromFilter)
 
-    const articlesFromFilterRrender = <InfiniteScroll
-        dataLength={articlesFromFilter.length + 2}
-        next={() => dispatch(updatePageSize(1))}
-        hasMore={true}>
-        {articlesFromFilter.map((article, index) => <Article key={index} {...article} />)}
-    </InfiniteScroll>
-    ////!!
-    const sourceFromFilter = query.get("source")
-
-
+    // const allArticles = articlesFromSource.concat(articlesFromSearch).concat(articlesFromFilter)
 
 
     // const magicFunctionForSource = (order, article)=> {
@@ -95,13 +91,10 @@ const Search = () => {
             if (articlesState === articlesFromSource) {
                 dispatch(toEmptyTheSingleSourceArray())
                 dispatch(sortingSourcesFromNewest(articlesState))
-                // dispatch(toEmptyTheSearchedArray())
-
             } else if (articlesState === articlesFromSearch) {
                 dispatch(toEmptyTheSearchedArray())
                 dispatch(sortingSearchedFromNewest(articlesState))
             }
-
         } else {
             if (articlesState === articlesFromSource) {
                 dispatch(toEmptyTheSingleSourceArray())
@@ -116,15 +109,90 @@ const Search = () => {
 
 
     // const today =  new Date().toISOString().split('T')[0];
-    // useEffect(() => {
-    //     if (sourceFromFilter) {
-    //         dispatch(loadDatabyCheckboxes(sourceFromFilter, null, null, null, 1, page))
+    const sourceFromFilter = query.get("source")
+    const countryFromFilter = query.get("country")
+    const categoryFromFilter = query.get("category")
+    const sourceChecked = useSelector((state) => state.Filter.checked)
+
+    // const magicFunctionforFiltering = (order, articleState) => {
+    //     if (order === "newest") {
+    //         if (articleState === articlesFromFilter) {
+    //             dispatch(toEmptyTheArrayFromFilter())
+    //             dispatch(sortingFilteredArticlesFromNewest(articleState))
+
+    //         } else {
+    //             //!! chi ashxatum esi 
+    //             if (articleState === articlesFromFilter) {
+    //                 dispatch(toEmptyTheArrayFromFilter())
+    //                 dispatch(sortingFilteredArticlesFromOldest(articleState))
+    //             }
+    //         }
+    //     }
+    // }
+    const magicFunctionforFiltering = (order, articlesState) => {
+        if (order === "newest") {
+            dispatch(toEmptyTheArrayFromFilter())
+
+            dispatch(sortingFilteredArticlesFromNewest(articlesState.sort((a, b) => {
+                if (Date.parse(a.publishedAt) / 1000 < Date.parse(b.publishedAt) / 1000) {
+                    return 1
+                } else {
+                    return -1
+                }
+            })))
+        } else {
+            dispatch(toEmptyTheArrayFromFilter())
+            dispatch(sortingFilteredArticlesFromOldest(articlesState.sort((a, b) => {
+                if (Date.parse(a.publishedAt) / 1000 > Date.parse(b.publishedAt) / 1000) {
+                    return 1
+                } else {
+                    return -1
+                }
+            })))
+        }
+    }
+
+    useEffect(() => {
+        if (sourceFromFilter) {
+            dispatch(toEmptyTheArrayFromFilter())
+            dispatch(loadDatabyCheckboxes(sourceFromFilter, null, null, null, null, initialPageState))
+            magicFunctionforFiltering(sortOrder, articlesFromFilter)
+        }
+    }, [sourceFromFilter, initialPageState, sortOrder])
+
+    //    dispatch(toEmptyTheArrayFromFilter())
+
+    useEffect(() => {
+        if (countryFromFilter) {
+            console.log(countryFromFilter, 'countryFromFilter')
+            dispatch(toEmptyTheArrayFromFilter())
+            dispatch(loadDatabyCheckboxes(null, null, countryFromFilter, categoryFromFilter ? categoryFromFilter : null, null, initialPageState))
+            magicFunctionforFiltering(sortOrder, articlesFromFilter)
+        }
+
+    }, [countryFromFilter, initialPageState, sortOrder])
+
+    useEffect(() => {
+        if (categoryFromFilter) {
+            console.log(categoryFromFilter, "categoryFromFilter")
+            dispatch(toEmptyTheArrayFromFilter())
+            dispatch(loadDatabyCheckboxes(null, null, countryFromFilter ? countryFromFilter : null, categoryFromFilter, null, initialPageState))
+            magicFunctionforFiltering(sortOrder, articlesFromFilter)
+        }
+
+    }, [categoryFromFilter, initialPageState, sortOrder])
+
+    // useEffect(()=> {
+    //     if(categoryFromFilter && countryFromFilter ){
+    //         console.log(categoryFromFilter, countryFromFilter)
+    //         dispatch(loadDatabyCheckboxes(null, null, null, categoryFromFilter , countryFromFilter, initialPageState))
+    //         magicFunctionforFiltering(sortOrder, articlesFromFilter)
     //     }
 
-    // }, [sourceFromFilter, initialPageState])
+    // }, [categoryFromFilter, categoryFromFilter, initialPageState, sortOrder])
 
-    console.log(sources)
-    console.log(sortOrder)
+
+
     useEffect(() => {
         if (sources) {
             dispatch(loadArticlesBySelectedSource(sources, 2, initialPageState, sort))
@@ -171,8 +239,13 @@ const Search = () => {
                             {articlesFromSearchRenderArray}
                         </InfiniteScroll>
                     }
+                    <InfiniteScroll
+                        dataLength={articlesFromFilter.length - 5}
+                        next={() => dispatch(updatePageSize(1))}
+                        hasMore={true}>
+                        {articlesFromFilterRrender}
 
-                    {sourceFromFilter && articlesFromFilterRrender}
+                    </InfiniteScroll>
                 </Col>
             </Row>
         </div>

@@ -7,7 +7,8 @@ import Source from './Source';
 import SearchInput from './SearchInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRef, useState } from 'react'
-import { showCountryAndCategory } from '../../../redux/features/filterSlice/actionCreators';
+import { categoryCheckedUnchecked, showCountryAndCategory } from '../../../redux/features/filterSlice/actionCreators';
+import { useHistory } from 'react-router';
 
 const BigForm = () => {
 
@@ -20,34 +21,41 @@ const BigForm = () => {
 
   const [form] = Form.useForm();
 
-  const resetFilter = () => {
-    form.resetFields()
-  }
+  // const resetFilter = () => {
+  //   form.resetFields()
+  // }
   // const onFinish = (values) => {
   //   console.log("recived values of form", values)
   // }
-
+  
+  const history = useHistory()
 
   return (
     // <div className='items'>
     <div >
-      <Button onClick={() => {
+      <Button onClick={(e) => {
         form.resetFields()
+        history.push(`/search`)
+        dispatch(categoryCheckedUnchecked(false))
+
       }}>Clear</Button>
       <Form
         className="items"
         name="form"
         form={form}
         // onFinish={onFinish}
+        initialValues={{
+          'checkbox': 'unchecked'
+        }}
       >
 
         <SearchInput />
-        </Form>
         {ccVisible ? <Category /> : null}
 
         {ccVisible ? <Country /> : null}
         {!categoryChecked && !countryChecked ? <Source /> : null}
-      
+        </Form>
+
     </div>
     // </div> 
   )
