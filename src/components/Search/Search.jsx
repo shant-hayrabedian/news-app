@@ -30,7 +30,7 @@ const Search = () => {
 
     const sources = query.get("sources")
     const q = query.get("q")
-    // console.log(q)
+    console.log(q)
     // let page = query.get("page")
     let pageSize = query.get("pageSize")
     // console.log(pageSize)
@@ -50,7 +50,7 @@ const Search = () => {
     const sortOrder = useSelector(state => state.Page.order)
 
     //shouldbe a separateComponent
-
+    const stat = useSelector(state => console.log(state))
 
     const articlesFromSource = useSelector((state) => state.FetchedArticlesBySource.articles) || []
 
@@ -59,7 +59,7 @@ const Search = () => {
 
     // should be a separate component
     const articlesFromSearch = useSelector((state) => state.FetchedArticlesFromSearch.fromEvent) || []
-  
+
     const articlesFromSearchRenderArray = articlesFromSearch.map((article, index) => <Article key={index} {...article} />)
 
 
@@ -78,12 +78,25 @@ const Search = () => {
     const sourceFromFilter = query.get("source")
 
 
+
+
+    // const magicFunctionForSource = (order, article)=> {
+    //     if(order === 'newest'){
+    //         dispatch(toEmptyTheSingleSourceArray())
+    //         dispatch(sortingSourcesFromNewest(articlesState))
+    //     }else{
+
+    //     }
+    // }
+
     const magicFunction = (order, articlesState) => {
 
         if (order === "newest") {
             if (articlesState === articlesFromSource) {
                 dispatch(toEmptyTheSingleSourceArray())
                 dispatch(sortingSourcesFromNewest(articlesState))
+                // dispatch(toEmptyTheSearchedArray())
+
             } else if (articlesState === articlesFromSearch) {
                 dispatch(toEmptyTheSearchedArray())
                 dispatch(sortingSearchedFromNewest(articlesState))
@@ -91,9 +104,9 @@ const Search = () => {
 
         } else {
             if (articlesState === articlesFromSource) {
-            dispatch(toEmptyTheSingleSourceArray())
-            dispatch(sortingSourcesFromOldest(articlesState))
-            }else if (articlesState === articlesFromSearch){
+                dispatch(toEmptyTheSingleSourceArray())
+                dispatch(sortingSourcesFromOldest(articlesState))
+            } else if (articlesState === articlesFromSearch) {
                 dispatch(toEmptyTheSearchedArray())
                 dispatch(sortingSearchedFromOldest(articlesState))
             }
@@ -103,14 +116,15 @@ const Search = () => {
 
 
     // const today =  new Date().toISOString().split('T')[0];
-    useEffect(() => {
-        if (sourceFromFilter) {
-            dispatch(loadDatabyCheckboxes(sourceFromFilter, null, null, null, 1, page))
-        }
+    // useEffect(() => {
+    //     if (sourceFromFilter) {
+    //         dispatch(loadDatabyCheckboxes(sourceFromFilter, null, null, null, 1, page))
+    //     }
 
-    }, [sourceFromFilter, initialPageState])
+    // }, [sourceFromFilter, initialPageState])
 
-
+    console.log(sources)
+    console.log(sortOrder)
     useEffect(() => {
         if (sources) {
             dispatch(loadArticlesBySelectedSource(sources, 2, initialPageState, sort))

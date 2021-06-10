@@ -2,16 +2,16 @@ import { FETCH_SEARCH_SOURCE_BY_QUERY_PARAMS, TO_EMPTY_ARRAY } from './constants
 import { fetchSearchBySelectedQueryParams } from "../../../api/headerSearchSliceAPI";
 
 ///!! reverse
-const updateOrderToNewest = (arr) => {
+const updateOrderToNewestSearch = (arr) => {
     return {
-        type: 'newest',
+        type: 'newest1',
         payload: arr || []
     }
 }
 
 export const sortingSearchedFromNewest = (arr) => {
     return dispatch => {
-        return dispatch(updateOrderToNewest(arr.sort((a, b) => {
+        return dispatch(updateOrderToNewestSearch(arr.sort((a, b) => {
             if (a.publishedAt.split('Z')[0] < b.publishedAt.split('Z')[0] ) {
                 return 1
             } else {
@@ -21,16 +21,16 @@ export const sortingSearchedFromNewest = (arr) => {
     }
 }
 
-const updateOrderToOldest = (arr) => {
+const updateOrderToOldestSearch = (arr) => {
     return  {
-        type: 'oldest',
+        type: 'oldest1',
         payload: arr || [],
     }
 }
 
 export const sortingSearchedFromOldest = (arr) => {
     return dispatch =>  {
-        return dispatch(updateOrderToOldest(arr.sort((a,b)=>{
+        return dispatch(updateOrderToOldestSearch(arr.sort((a,b)=>{
             if(a.publishedAt.split('Z')[0] > b.publishedAt.split('Z')[0]){
                 return 1
             }else{

@@ -3,7 +3,7 @@ import { fetchArticlesBySelectedSource } from '../../../api/singleSourceSliceAPI
 
 ///!!! reverse
 
-const updateOrderToNewest = (arr) => {
+const updateOrderToNewestSource = (arr) => {
     return {
         type: 'newest',
         payload: arr || []
@@ -12,7 +12,7 @@ const updateOrderToNewest = (arr) => {
 
 export const sortingSourcesFromNewest = (arr) => {
     return dispatch => {
-        return dispatch(updateOrderToNewest(arr.sort((a, b) => {
+        return dispatch(updateOrderToNewestSource(arr.sort((a, b) => {
             if (a.publishedAt.split('Z')[0] < b.publishedAt.split('Z')[0] ) {
                 return 1
             } else {
@@ -22,7 +22,7 @@ export const sortingSourcesFromNewest = (arr) => {
     }
 }
 
-const updateOrderToOldest = (arr) => {
+const updateOrderToOldestSource = (arr) => {
     return  {
         type: 'oldest',
         payload: arr || [],
@@ -31,7 +31,7 @@ const updateOrderToOldest = (arr) => {
 
 export const sortingSourcesFromOldest = (arr) => {
     return dispatch =>  {
-        return dispatch(updateOrderToOldest(arr.sort((a,b)=>{
+        return dispatch(updateOrderToOldestSource(arr.sort((a,b)=>{
             if(a.publishedAt.split('Z')[0] > b.publishedAt.split('Z')[0]){
                 return 1
             }else{

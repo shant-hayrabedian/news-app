@@ -23,9 +23,9 @@ const BigForm = () => {
   const resetFilter = () => {
     form.resetFields()
   }
-  const onFinish = (values) => {
-    console.log("recived values of form", values)
-  }
+  // const onFinish = (values) => {
+  //   console.log("recived values of form", values)
+  // }
 
 
   return (
@@ -38,16 +38,16 @@ const BigForm = () => {
         className="items"
         name="form"
         form={form}
-        onFinish={onFinish}
+        // onFinish={onFinish}
       >
 
         <SearchInput />
-
+        </Form>
         {ccVisible ? <Category /> : null}
 
         {ccVisible ? <Country /> : null}
         {!categoryChecked && !countryChecked ? <Source /> : null}
-      </Form>
+      
     </div>
     // </div> 
   )

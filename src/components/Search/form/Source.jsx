@@ -32,7 +32,6 @@ const Source = () => {
     }
 
     const sourcesData = useSelector(state => state.FetchedSources.sources)
-    const stat = useSelector(state => console.log(state))
     const sources = sourcesData.map((source, index) => {
         return {
             query: source.id,

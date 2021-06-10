@@ -26,7 +26,7 @@ const Home = () => {
 
         dispatch(loadFetchedSources())
         
-    }, [sources])
+    }, [])
 
 
 

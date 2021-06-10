@@ -36,8 +36,7 @@ const CheckboxesRender = (props) => {
         const pushUrl = (e, sourceQuery, countryCode, category) => {
             if(countryChecked && categoryChecked){
                 history.push(`/search?country=${countryCode}&category=${category}`)
-            }
-            if(countryCode){
+            }else if(countryCode){
                 history.push(`/search?country=${countryCode}`)
             }else if(category){
                 history.push(`/search?category=${category}`)

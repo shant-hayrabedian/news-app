@@ -4,7 +4,7 @@ import './Header.css';
 import { SearchOutlined } from '@ant-design/icons';
 import { Input } from 'antd';
 import Search from "antd/es/input/Search";
-import { loadSearchBySelectedQueryParams, toEmptyTheSearchedArray } from "../../redux/features/headerSearchSlice/actionCreators";
+import { loadSearchBySelectedQueryParams, sortingSearchedFromNewest, sortingSearchedFromOldest, toEmptyTheSearchedArray } from "../../redux/features/headerSearchSlice/actionCreators";
 // import {emptyTheSingleSource} from '../../redux/features/singleSourceSlice/actionCreators'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -53,15 +53,15 @@ const Header = () => {
             ///!! petq a hanel
             if(q){
                 if(sortOrder === "newest"){
-                    dispatch(loadSearchBySelectedQueryParams(q, 2, page, sort))
                     dispatch(toEmptyTheSearchedArray())
-                    dispatch(sortingSourcesFromNewest(articlesFromSearch))
-                }else{
-                    dispatch(toEmptyTheSearchedArray())
-                    dispatch(sortingSourcesFromOldest(articlesFromSearch))
-                }
+                   dispatch(loadSearchBySelectedQueryParams(q, 2, page, sort))
+                   dispatch(sortingSearchedFromNewest(articlesFromSearch))
+               }else{
+                   dispatch(toEmptyTheSearchedArray())
+                   dispatch(sortingSearchedFromOldest(articlesFromSearch))
+               }
             }
-
+        
             dispatch(toEmptyTheSearchedArray())
 
             if(page !== 1){
@@ -80,6 +80,7 @@ const Header = () => {
                 <h1 onClick={()=> {
                     dispatch(resetPage(1))
                     dispatch(toEmptyTheSingleSourceArray())
+                    dispatch(toEmptyTheSearchedArray())
                 }}><Link to="/">News</Link></h1>
             </div>
             <nav>
