@@ -2,11 +2,12 @@ import './Sorted.css'
 import { useRef, useState } from 'react'
 import { useHistory, useLocation } from "react-router-dom";
 import { useQuery } from "../../../functions/URLSearchParams"
-import { loadSearchBySelectedQueryParams, toEmptyTheSearchedArray } from '../../../redux/features/headerSearchSlice/actionCreators';
+import { loadSearchBySelectedQueryParams, reverseArrFromSearch, toEmptyTheSearchedArray } from '../../../redux/features/headerSearchSlice/actionCreators';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadArticlesBySelectedSource, toEmptyTheSingleSourceArray } from '../../../redux/features/singleSourceSlice/actionCreators';
+import { loadArticlesBySelectedSource, reverseArrFromSource, sortingFromNewest, sortingFromOldest, toEmptyTheSingleSourceArray } from '../../../redux/features/singleSourceSlice/actionCreators';
 
 import { Select } from 'antd'
+import { changeOrder } from '../../../redux/features/pageSlice/actionCreators';
 
 const { Option } = Select;
 
@@ -28,57 +29,70 @@ const Sorted = () => {
 
     // const today =  new Date().toISOString().split('T')[0];
     // const fullDate = new Date().toISOString()
-    const arrBySource = useSelector(state => state.FetchedArticlesBySource.articles)
-    const arrBySearch = useSelector(state => state.FetchedArticlesFromSearch.fromEvent)
+    // const arrBySource = useSelector(state => state.FetchedArticlesBySource.articles)
+    // const arrBySearch = useSelector(state => state.FetchedArticlesFromSearch.fromEvent)
 
-    const handleSortingOnChange = (value) => {
-        history.push(`/search?${q ? "q" : "sources"}=${q ? q : sources}&sortBy=${value}`)
-        if (q) {
-            dispatch(toEmptyTheSearchedArray())
-            dispatch(loadSearchBySelectedQueryParams(q, arrBySearch.length, page, value))
-        }
-        if (sources) {
-            dispatch(toEmptyTheSingleSourceArray())
-            dispatch(loadArticlesBySelectedSource(sources, arrBySource.length, page, value))
-        }
+    // const handleSortingOnChange = (value) => {
+
+    // history.push(`/search?${q ? "q" : "sources"}=${q ? q : sources}&sortBy=${value}`)
+    // if (q) {
+    // dispatch(toEmptyTheSearchedArray())
+
+    //     dispatch(loadSearchBySelectedQueryParams(q, arrBySearch.length, page, value))
+    //  }
+    //  if (sources) {
+    // dispatch(toEmptyTheSingleSourceArray())
+    // dispatch(reverseArr())
+
+    //     dispatch(loadArticlesBySelectedSource(sources, arrBySource.length, page, value))
+    //  }
+    //  }
+
+   
+    const sortingRenderedArrayOnChange = (e) => {
+            if(e === 'latest'){
+                dispatch(changeOrder('oldest'))
+            }else{
+                dispatch(changeOrder('newest'))
+            }
     }
 
 
     const options = [{
-        value: 'popularity',
+        value: 'newest',
         id: 1
     }, {
-        value: 'relevancy',
+        value: 'latest',
         id: 2
-    }, {
-        value: 'publishedAt',
-        id: 3
     }]
 
-
     return (
-        
-            <div style={{textAlign: 'right', fontWeight: 'bold' }}>
-                <label style={{fontSize: 20}} className="label2" htmlFor="sort2">Sorted by:</label>
-                <Select
-                    onDropdownVisibleChange={() => setDropDownOnLabelClick(false)}
-                    onClick={() => !dropDownOnLabelClick ? setDropDownOnLabelClick(true) : setDropDownOnLabelClick(false)}
-                    className='select2'
-                    id="sort2"
-                    defaultValue="popularity"
-                    style={{ width: 170, textAlign: 'left', fontSize: 18 }}
-                    bordered={false}
-                    open={dropDownOnLabelClick}
-                    onChange={handleSortingOnChange}
-                    showArrow={false}
-                >
+
+        <div style={{ textAlign: 'right', fontWeight: 'bold' }}>
+            <label style={{ fontSize: 20 }} className="label2" htmlFor="sort2">Sorted by:</label>
+            <Select
+                onDropdownVisibleChange={() => setDropDownOnLabelClick(false)}
+                onClick={(e) => {
+                    !dropDownOnLabelClick ? setDropDownOnLabelClick(true) : setDropDownOnLabelClick(false);
+                }}
+                className='select2'
+                id="sort2"
+                defaultValue="newest"
+                style={{ width: 170, textAlign: 'left', fontSize: 18 }}
+                bordered={false}
+                open={dropDownOnLabelClick}
+                onChange={(e) => {
+                    sortingRenderedArrayOnChange(e)
+                }}
+                showArrow={false}
+            >
                 {options.map((option) => <Option className="option" key={option.id} value={option.value}>
-                    {option.value === 'publishedAt' ? 'Published date' : option.value[0].toUpperCase() + option.value.slice(1)}
-                    </Option>
+                    {option.value[0].toUpperCase() + option.value.slice(1)}
+                </Option>
                 )}
 
-                </Select>
-            </div>
+            </Select>
+        </div>
 
     )
 }

@@ -27,3 +27,18 @@ export function resetPage(num){
         return dispatch(reset(num))
     }
 }
+
+
+
+const ordering = (order)=>{
+    return {
+        type: "changeOrder",
+        payload: order
+    }
+}
+
+export const changeOrder =(order) => {
+    return dispatch => {
+        return dispatch(ordering(order))
+    }
+}

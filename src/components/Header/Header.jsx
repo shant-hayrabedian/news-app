@@ -10,11 +10,10 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { useHistory, useLocation } from "react-router-dom";
 import {endpoints} from '../../api/endpoints'
-import { toEmptyTheSingleSourceArray } from "../../redux/features/singleSourceSlice/actionCreators";
+import { sortingSourcesFromNewest, sortingSourcesFromOldest, toEmptyTheSingleSourceArray } from "../../redux/features/singleSourceSlice/actionCreators";
 
 import { resetPage, updatePageSize } from '../../redux/features/pageSlice/actionCreators';
 
-// import { toEmptyTheSource } from '../../redux/features/sourcesSlice/actionCreators';
 import {useQuery} from '../../functions/URLSearchParams'
 
 
@@ -32,7 +31,10 @@ const Header = () => {
     const dispatch = useDispatch()
     
     const page = useSelector((state)=> state.Page.page)
-
+    const sortOrder = useSelector((state)=> state.Page.order)
+    const articlesFromSearch = useSelector((state) => state.FetchedArticlesFromSearch.fromEvent) || []
+    console.log(sortOrder)
+    console.log(articlesFromSearch)
     // const sources = query.get("sources")
     // console.log("sources", sources)
     let q = query.get("q")
@@ -48,8 +50,16 @@ const Header = () => {
             // dispatch(toEmptyTheSingleSourceArray())
             // dispatch(toEmptyTheSource())
             history.push(`/search?q=${event.target.value}`)
+            ///!! petq a hanel
             if(q){
-                dispatch(loadSearchBySelectedQueryParams(q, 5, page, sort))
+                if(sortOrder === "newest"){
+                    dispatch(loadSearchBySelectedQueryParams(q, 2, page, sort))
+                    dispatch(toEmptyTheSearchedArray())
+                    dispatch(sortingSourcesFromNewest(articlesFromSearch))
+                }else{
+                    dispatch(toEmptyTheSearchedArray())
+                    dispatch(sortingSourcesFromOldest(articlesFromSearch))
+                }
             }
 
             dispatch(toEmptyTheSearchedArray())

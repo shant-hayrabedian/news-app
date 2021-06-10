@@ -1,11 +1,12 @@
 import { Checkbox } from 'antd';
-import { Row, Col } from 'antd';
+import { Row, Col, Form} from 'antd';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { countryCheckedUnchecked } from '../../../redux/features/filterSlice/actionCreators';
+import { countryCheckedUnchecked, setCountryCode } from '../../../redux/features/filterSlice/actionCreators';
 import { countries } from 'country-data'
 import CheckboxesRender from './Checkbox/CheckboxesRender';
 import { countriesAbb, max } from '../../../lib/CONSTANTS';
+import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
 
 const Country = () => {
@@ -14,6 +15,7 @@ const Country = () => {
     const [showLess, setShowLess] = useState(true)
 
     const dispatch = useDispatch()
+
     const toggleCheck = (e) => {
         const val = e.target.value
         if (idOfSelected === val) {
@@ -26,8 +28,10 @@ const Country = () => {
     function onChange(e) {
         if (e.target.checked) {
             dispatch(countryCheckedUnchecked(true))
+            // dispatch(setCountryCode(country)) 
         } else {
             dispatch(countryCheckedUnchecked(false))
+            // dispatch(setCountryCode('')) 
 
         }
 
@@ -42,7 +46,7 @@ const Country = () => {
         }
     })
 
-    
+
 
     const countriesRender = countriesArray.map((country, index) => {
         if (showLess && index < max) {
@@ -51,7 +55,8 @@ const Country = () => {
                 id={country.id}
                 onChange={onChange}
                 toggleCheck={toggleCheck}
-                name={country.fullName} />
+                name={country.fullName}
+                countryCode={country.abbreviation} />
             //     return <Col span={5}
             //     key={source.id}
             // >
@@ -70,7 +75,8 @@ const Country = () => {
                 id={country.id}
                 onChange={onChange}
                 toggleCheck={toggleCheck}
-                name={country.fullName} />
+                name={country.fullName}
+                countryCode={country.abbreviation} />
             // return <Col span={5}
             //     key={source.id}
             // >
@@ -88,13 +94,21 @@ const Country = () => {
     return (
         <div className='item'>
             <h3 style={{ fontWeight: 'bold', fontSize: 18 }}>Country</h3>
-            <button
+            <a
                 onClick={() => showLess ? setShowLess(false) : setShowLess(true)}
             >
-                {showLess ? "more" : "less"}
-            </button>
+                {showLess ? <UpOutlined /> : <DownOutlined />}
+                {showLess ? 'more' : 'less'}
+            </a>
             <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+            {/* <Form.Item
+                name='checkbox-group-country'
+                valuePropName="checked"
+            > */}
+            {/* <Checkbox.Group > */}
                 {countriesRender}
+            {/* </Checkbox.Group> */}
+            {/* </Form.Item> */}
                 {/* {countries2.map((country, index) => {
                     return <Col span={6}
                     style={{marginTop: 16}}

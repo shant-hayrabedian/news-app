@@ -1,10 +1,11 @@
 import { Checkbox } from 'antd';
-import { Row, Col } from 'antd';
+import { Row, Col, Form} from 'antd';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { max } from '../../../lib/CONSTANTS';
-import {showCountryAndCategory, hideCountryAndCategory} from '../../../redux/features/filterSlice/actionCreators';
+import { showCountryAndCategory, hideCountryAndCategory, setSourceQuery } from '../../../redux/features/filterSlice/actionCreators';
 import CheckboxesRender from './Checkbox/CheckboxesRender';
+import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
 
 const Source = () => {
@@ -22,26 +23,26 @@ const Source = () => {
         }
     }
 
-    function onChange(e) {
+    function onChange(e, source) {
         if (e.target.checked) {
             dispatch(hideCountryAndCategory())
         } else {
-            dispatch(showCountryAndCategory()) 
+            dispatch(showCountryAndCategory())
         }
     }
-    
-    const sourcesData = useSelector(state => state.FetchedSources.sources)
 
+    const sourcesData = useSelector(state => state.FetchedSources.sources)
+    const stat = useSelector(state => console.log(state))
     const sources = sourcesData.map((source, index) => {
         return {
-            value: source.id,
+            query: source.id,
             name: source.name,
             id: index + 1
         }
     })
 
 
-    
+
 
     const sourcesRender = sources.map((source, index) => {
         if (showLess && index < max) {
@@ -50,7 +51,8 @@ const Source = () => {
                 id={source.id}
                 onChange={onChange}
                 toggleCheck={toggleCheck}
-                name={source.name} />
+                name={source.name}
+                sourceQuery={source.query} />
             // return <Col span={5}
             //     key={source.id}
             // >
@@ -64,12 +66,13 @@ const Source = () => {
             // </Col>
         }
         if (!showLess) {
-        return    <CheckboxesRender key={source.id}
-            idOfSelected={idOfSelected}
-            id={source.id}
-            onChange={onChange}
-            toggleCheck={toggleCheck}
-            name={source.name} />
+            return <CheckboxesRender key={source.id}
+                idOfSelected={idOfSelected}
+                id={source.id}
+                onChange={(e) => onChange(e, source.query)}
+                toggleCheck={toggleCheck}
+                name={source.name}
+                sourceQuery={source.query} />
 
             // return <Col span={5}
             //     key={source.id}
@@ -84,19 +87,29 @@ const Source = () => {
             // </Col>
         }
     })
-
-
+   
 
     return (
         <div className='item'>
             <h3 style={{ fontWeight: 'bold', fontSize: 18 }}>Source</h3>
-            <button
+            <a
                 onClick={() => showLess ? setShowLess(false) : setShowLess(true)}
             >
-                {showLess ? "more" : "less"}
-            </button>
+                {showLess ? <UpOutlined /> : <DownOutlined />}
+                {showLess ? 'more' : 'less'}
+            </a>
+            
+
             <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+
+            {/* <Form.Item
+                name='checkbox-group-source'
+                valuePropName="checked"
+            > */}
+            {/* <Checkbox.Group> */}
                 {sourcesRender}
+            {/* </Checkbox.Group> */}
+            {/* </Form.Item> */}
             </Row>
         </div>
     )
