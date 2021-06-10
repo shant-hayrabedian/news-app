@@ -54,7 +54,10 @@
 .icons > a:hover {
     background-color: white;
 }
-/*.ant-card ant-card-bordered {*/
-/*    width: 396px;background: rgb(196, 196, 196);margin-bottom: 20px;height: 225px;*/
-/*}*/
-/*width: 396px;background: rgb(196, 196, 196);margin-bottom: 20px;height: 225px;*/
+
+.ant-result-subtitle {
+    color: #2f2279;
+    font-size: 17px;
+    line-height: 1.6;
+    text-align: center;
+}
