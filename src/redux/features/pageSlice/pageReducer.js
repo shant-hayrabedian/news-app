@@ -1,4 +1,4 @@
-import { LOAD_MORE, RESET } from './constants'
+import { LOAD_MORE, RESET, CHANGE_ORDER} from './constants'
 
 
 export const initialPageSize = {
@@ -15,7 +15,7 @@ export const loadMoreArticles = (state = initialPageSize, action) => {
             return { ...state, page: state.page + action.payload };
         case RESET:
             return { ...state, page: action.payload }
-        case "changeOrder":
+        case CHANGE_ORDER:
             return { ...state, order: action.payload }  ///!!
         default:
             return state

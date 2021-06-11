@@ -13,10 +13,6 @@ export const getArticlesForSingleSource = (state = initialArticlesState, action)
             return { ...state, articles: [...state.articles, ...action.payload]};
             case  TO_EMPTY_SINGLE_SOURCE:
             return {...state, articles: action.payload};
-            case 'latest':
-                return {...state, articles:[...action.payload ]}
-            case 'oldest':
-                return {...state,  articles: [...action.payload]}
         default:
             return state
     }

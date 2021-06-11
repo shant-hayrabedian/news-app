@@ -5,7 +5,7 @@ import { loadDatabyCheckboxes, toEmptyTheArrayFromFilter } from '../../../redux/
 import { resetPage } from '../../../redux/features/pageSlice/actionCreators';
 
 
-import { Form, Radio, Row, Col, Button } from 'antd';
+import { Form } from 'antd';
 import { useHistory } from 'react-router';
 import { toEmptyTheSingleSourceArray } from '../../../redux/features/singleSourceSlice/actionCreators';
 import { toEmptyTheSearchedArray } from '../../../redux/features/headerSearchSlice/actionCreators';

@@ -1,48 +1,6 @@
 import { FETCH_BY_SINGLE_SELECTED_SOURCE_ARTICLES, TO_EMPTY_SINGLE_SOURCE } from './constants'
 import { fetchArticlesBySelectedSource } from '../../../api/singleSourceSliceAPI'
 
-///!!! reverse
-
-const updateOrderToNewestSource = (arr) => {
-    return {
-        type: 'latest',
-        payload: arr || []
-    }
-}
-
-export const sortingSourcesFromNewest = (arr) => {
-    return dispatch => {
-        return dispatch(updateOrderToNewestSource(arr.sort((a, b) => {
-            if (Date.parse(a.publishedAt) / 1000 < Date.parse(b.publishedAt) / 1000 ) {
-                return 1
-            } else {
-                return -1
-            }
-        })))
-    }
-}
-
-const updateOrderToOldestSource = (arr) => {
-    return  {
-        type: 'oldest',
-        payload: arr || [],
-    }
-}
-
-export const sortingSourcesFromOldest = (arr) => {
-    return dispatch =>  {
-        return dispatch(updateOrderToOldestSource(arr.sort((a,b)=>{
-            if(Date.parse(a.publishedAt) / 1000 > Date.parse(b.publishedAt) / 1000){
-                return 1
-            }else{
-                return -1
-            }
-        })))
-    }
-}
-
-
-
 
 
 

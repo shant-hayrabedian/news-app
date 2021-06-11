@@ -2,12 +2,6 @@ import {endpoints} from './endpoints'
 import customAxios from './axiosconfig'
 
 
-// export function fetchSearchBySelectedQueryParams(eventTargetValue, pageSize, pageNumber, sortType) {
-//     return customAxios.get(endpoints.urlSearchByQuery(eventTargetValue, pageSize, pageNumber, sortType))
-//         .then(response => response.data)
-//         .catch((error) => console.log(error))
-// } 
-
 export function fetchSearchBySelectedQueryParams(eventTargetValueForSearch, pageSize, page, sortBy) {
     return customAxios({
         method: 'GET',

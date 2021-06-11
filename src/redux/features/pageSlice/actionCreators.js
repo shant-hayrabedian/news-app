@@ -1,4 +1,4 @@
-import {LOAD_MORE, RESET} from './constants'
+import {LOAD_MORE, RESET, CHANGE_ORDER} from './constants'
 
 
 const  updateState = (num) => {
@@ -32,7 +32,7 @@ export function resetPage(num){
 
 const ordering = (order)=>{
     return {
-        type: "changeOrder",
+        type: CHANGE_ORDER,
         payload: order
     }
 }

@@ -3,7 +3,11 @@ import {
     HIDE_FILTER_CC,
     CATEGORY_CHECKED_UNCHECKED,
     COUNTRY_CHECKED_UNCHECKED,
-    FETCH_DATA_USING_CHECKBOXES_AND_FILTER
+    FETCH_DATA_USING_CHECKBOXES_AND_FILTER,
+    TO_EMPTY_THE_ARTICLESFROMFILTER,
+    SET_CATEGORY_ID_STATE,
+    SET_COUNTRY_ID_STATE,
+    SET_SOURCE_ID_STATE
 } from './constants'
 
 export const initialFilterState = {
@@ -29,19 +33,14 @@ export const filterVisibilityChanger = (state = initialFilterState, action) => {
 
         case FETCH_DATA_USING_CHECKBOXES_AND_FILTER:
             return { ...state, articlesFromFilter: [...state.articlesFromFilter, ...action.payload] }
-        case "TO_EMPTY_THE_ARTICLESFROMFILTER":
+        case TO_EMPTY_THE_ARTICLESFROMFILTER:
             return { ...state, articlesFromFilter: action.payload }
-        case "TO_NEWEST_FILTERARTICLES":
-            return { ...state, articlesFromFilter: [...action.payload] }
-        case 'TO_OLDEST_FILTERARTICLES':
-            return { ...state, articlesFromFilter: [...action.payload] }
 
-
-        case "SET_CATEGORY_ID_STATE":
+        case SET_CATEGORY_ID_STATE:
             return { ...state, checkBoxIdState: { ...state.checkBoxIdState, categoryIdState: action.payload } }
-        case "SET_COUNTRY_ID_STATE":
+        case SET_COUNTRY_ID_STATE:
             return { ...state, checkBoxIdState: { ...state.checkBoxIdState, countryIdState: action.payload } }
-        case "SET_SOURCE_ID_STATE":
+        case SET_SOURCE_ID_STATE:
             return { ...state, checkBoxIdState: { ...state.checkBoxIdState, sourceIdState: action.payload } }
 
         case HIDE_FILTER_CC:

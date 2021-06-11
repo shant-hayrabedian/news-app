@@ -5,7 +5,6 @@ import {getArticlesfromSearching} from "./headerSearchSlice/headerSearchReducer"
 import {loadMoreArticles} from "./pageSlice/pageReducer"
 import { filterVisibilityChanger } from "./filterSlice/filterReducer";
 
-// import {clickingReducer} from "./singleSourceSlice/singleSourceReducer"
 
 
 
@@ -15,7 +14,6 @@ const rootReducer = combineReducers({
     FetchedArticlesFromSearch: getArticlesfromSearching,
     Page: loadMoreArticles,
     Filter: filterVisibilityChanger
-    // Clicked: clickingReducer
 })
 
 

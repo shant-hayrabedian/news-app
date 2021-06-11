@@ -1,6 +1,6 @@
 import { Card, Col } from 'antd';
 import { Link } from 'react-router-dom'
-import { countries, languages, lookup } from 'country-data'
+import { countries, languages } from 'country-data'
 import '../Home.css';
 import { resetPage } from '../../../redux/features/pageSlice/actionCreators';
 import { toEmptyTheSingleSourceArray } from '../../../redux/features/singleSourceSlice/actionCreators';

@@ -1,23 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { Card } from 'antd';
 
-import { Col, Row } from 'antd';
+import {  Row } from 'antd';
 import './Home.css';
 
 
 
-//redux../../redux/features/sourcesSlice/actions/actionCreators
 import { useSelector, useDispatch } from 'react-redux'
 
 import { loadFetchedSources } from '../../redux/features/sourcesSlice/actionCreators.js';
-import { ConsoleSqlOutlined } from '@ant-design/icons';
 import SingleSourceCard from './SingleSourceCard/SingleSourceCard';
-import { toEmptyTheSingleSourceArray } from '../../redux/features/singleSourceSlice/actionCreators';
-import { resetPage } from '../../redux/features/pageSlice/actionCreators';
 import FadeLoader from "react-spinners/FadeLoader";
 
 const Home = () => {
-    const { Meta } = Card;
 
     const sources = useSelector((state) => state.FetchedSources?.sources) || [];
     const [loading, setLoading] = useState(false);
