@@ -32,9 +32,9 @@ export const filterVisibilityChanger = (state = initialFilterState, action) => {
         case "TO_EMPTY_THE_ARTICLESFROMFILTER":
             return { ...state, articlesFromFilter: action.payload }
         case "TO_NEWEST_FILTERARTICLES":
-            return { ...state, articlesFromFilter: [...state.articlesFromFilter, ...action.payload] }
+            return { ...state, articlesFromFilter: [...action.payload] }
         case 'TO_OLDEST_FILTERARTICLES':
-            return { ...state, articlesFromFilter: [...state.articlesFromFilter, ...action.payload] }
+            return { ...state, articlesFromFilter: [...action.payload] }
 
 
         case "SET_CATEGORY_ID_STATE":

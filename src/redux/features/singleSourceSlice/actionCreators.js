@@ -13,7 +13,7 @@ const updateOrderToNewestSource = (arr) => {
 export const sortingSourcesFromNewest = (arr) => {
     return dispatch => {
         return dispatch(updateOrderToNewestSource(arr.sort((a, b) => {
-            if (a.publishedAt.split('Z')[0] < b.publishedAt.split('Z')[0] ) {
+            if (Date.parse(a.publishedAt) / 1000 < Date.parse(b.publishedAt) / 1000 ) {
                 return 1
             } else {
                 return -1
@@ -32,7 +32,7 @@ const updateOrderToOldestSource = (arr) => {
 export const sortingSourcesFromOldest = (arr) => {
     return dispatch =>  {
         return dispatch(updateOrderToOldestSource(arr.sort((a,b)=>{
-            if(a.publishedAt.split('Z')[0] > b.publishedAt.split('Z')[0]){
+            if(Date.parse(a.publishedAt) / 1000 > Date.parse(b.publishedAt) / 1000){
                 return 1
             }else{
                 return -1

@@ -10,3 +10,6 @@ export const countriesAbb = [
 export const categoriesData = ['entertainment', 'sports',   'business', 'general', 'technology',  'health',  'science']
 
 export const max = 12
+
+export const months = ["January", "February", "March", "April", "May", "June",
+"July", "August", "September", "October", "November", "December"];

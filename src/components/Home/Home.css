@@ -1,8 +1,14 @@
-@import '~antd/dist/antd.css';
+@import "~antd/dist/antd.css";
 
 .ant-card-meta-description {
     color: black;
 }
+.ant-card-meta-title {
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+}
+
 .ant-card-actions {
     margin: 0;
     padding: 0;
@@ -10,13 +16,14 @@
     /* background: #fff; */
     /* border-top: 1px solid #f0f0f0; */
 }
-.ant-card-actions > li > span a:not(.ant-btn), .ant-card-actions > li > span > .anticon {
+.ant-card-actions > li > span a:not(.ant-btn),
+.ant-card-actions > li > span > .anticon {
     display: inline-block;
     width: 100%;
     color: black;
-    line-height: 22px;
     transition: color 0.3s;
-    font-size: 19px;
+    font-size: 15px;
+    position: relative;
 }
 
 .sourcesParagraph {
@@ -24,11 +31,50 @@
     font-weight: 400;
 }
 
-/*.ant-card-actions > li > span a:not(.ant-btn), .ant-card-actions > li > span > .anticon {*/
-/*    display: inline-block;*/
-/*    width: 100%;*/
-/*    color: black;*/
-/*    line-height: 22px;*/
-/*    transition: color 0.3s;*/
-/*    font-size: 19px;*/
-/*}*/
+.ant-card-body {
+    padding: 7px;
+}
+
+.icons {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color: black;
+    line-height: 18px;
+    transition: color 0.3s;
+    font-size: 20px;
+    padding: 7px;
+    /*background:#C4C4C4;*/
+}
+.bot > a {
+    padding: 2px;
+    color: black;
+    
+}
+/* .icons > :first-child {
+    margin-right: 4%;
+}
+
+.icons > :last-child {
+    margin-left: 1%;
+} */
+.bot > a:hover {
+    background-color: rgba(255, 255, 255, 0.541);
+}
+
+.ant-result-subtitle {
+    color: #2f2279;
+    font-size: 20px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+
+.bot{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    margin-left: -5px;
+    margin-right: 8px;
+    transition: color 0.3s
+}

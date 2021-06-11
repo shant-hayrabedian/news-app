@@ -11,7 +11,6 @@ import 'antd/dist/antd.css';
 import s from './Search.module.css'
 import { Row, Col, Dropdown } from 'antd';
 import BigForm from './form/Form';
-import Clear from './form/Clear';
 import Sorted from './form/Sorted';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { loadMoreArticles } from '../../redux/features/pageSlice/pageReducer';
@@ -19,6 +18,9 @@ import { resetPage, updatePageSize } from '../../redux/features/pageSlice/action
 import { loadSearchBySelectedQueryParams, reverseArrFromSearch, sortingSearchedFromNewest, sortingSearchedFromOldest, toEmptyTheSearchedArray } from "../../redux/features/headerSearchSlice/actionCreators";
 import { loadFetchedSources } from '../../redux/features/sourcesSlice/actionCreators';
 import { loadDatabyCheckboxes, sortingFilteredArticlesFromNewest, sortingFilteredArticlesFromOldest, toEmptyTheArrayFromFilter } from '../../redux/features/filterSlice/actionCreators';
+
+//!!!
+import GridLoader from "react-spinners/GridLoader";
 
 
 // console.log(today)
@@ -67,27 +69,27 @@ const Search = () => {
     ////!!
 
 
-    const magicFunction = (order, articlesState) => {
+    // const magicFunction = (order, articlesState) => {
 
-        if (order === "latest") {
-            if (articlesState === articlesFromSource) {
-                dispatch(toEmptyTheSingleSourceArray())
-                dispatch(sortingSourcesFromNewest(articlesState))
-            } else if (articlesState === articlesFromSearch) {
-                dispatch(toEmptyTheSearchedArray())
-                dispatch(sortingSearchedFromNewest(articlesState))
-            }
-        } else {
-            if (articlesState === articlesFromSource) {
-                dispatch(toEmptyTheSingleSourceArray())
-                dispatch(sortingSourcesFromOldest(articlesState))
-            } else if (articlesState === articlesFromSearch) {
-                dispatch(toEmptyTheSearchedArray())
-                dispatch(sortingSearchedFromOldest(articlesState))
-            }
-        }
+    //     if (order === "latest") {
+    //         if (articlesState === articlesFromSource) {
+    //             dispatch(toEmptyTheSingleSourceArray())
+    //             dispatch(sortingSourcesFromNewest(articlesState))
+    //         } else if (articlesState === articlesFromSearch) {
+    //             dispatch(toEmptyTheSearchedArray())
+    //             dispatch(sortingSearchedFromNewest(articlesState))
+    //         }
+    //     } else {
+    //         if (articlesState === articlesFromSource) {
+    //             dispatch(toEmptyTheSingleSourceArray())
+    //             dispatch(sortingSourcesFromOldest(articlesState))
+    //         } else if (articlesState === articlesFromSearch) {
+    //             dispatch(toEmptyTheSearchedArray())
+    //             dispatch(sortingSearchedFromOldest(articlesState))
+    //         }
+    //     }
 
-    }
+    // }
 
 
     // const today =  new Date().toISOString().split('T')[0];
@@ -96,151 +98,117 @@ const Search = () => {
     const categoryFromFilter = query.get("category")
     const qFromFilter = query.get('qFromFilter')
 
-    const magicFunctionforFiltering = (order, articlesState) => {
-        if (order === "latest") {
-            dispatch(toEmptyTheArrayFromFilter())
-
-            dispatch(sortingFilteredArticlesFromNewest(articlesState.sort((a, b) => {
-                if (Date.parse(a.publishedAt) / 1000 < Date.parse(b.publishedAt) / 1000) {
-                    return 1
-                } else {
-                    return -1
-                }
-            })))
-        } else {
-            dispatch(toEmptyTheArrayFromFilter())
-            dispatch(sortingFilteredArticlesFromOldest(articlesState.sort((a, b) => {
-                if (Date.parse(a.publishedAt) / 1000 > Date.parse(b.publishedAt) / 1000) {
-                    return 1
-                } else {
-                    return -1
-                }
-            })))
-        }
-    }
-
-    // useEffect(() => {
-    //     if (sourceFromFilter) {
-    //         dispatch(toEmptyTheArrayFromFilter())
-    //         dispatch(loadDatabyCheckboxes(sourceFromFilter, null, null, null, null, initialPageState))
-    //         magicFunctionforFiltering(sortOrder, articlesFromFilter)
-    //     }
-    // }, [sourceFromFilter, initialPageState, sortOrder])
 
 
 
 
     useEffect(() => {
+
         if (categoryFromFilter || countryFromFilter || qFromFilter || sourceFromFilter) {
-            dispatch(toEmptyTheArrayFromFilter())
             dispatch(loadDatabyCheckboxes(sourceFromFilter ? sourceFromFilter : null,
-                                            qFromFilter ? qFromFilter : null,
-                                             countryFromFilter ? countryFromFilter : null,
-                                                 categoryFromFilter ? categoryFromFilter : null,
-                                                     null,
-                                                  initialPageState))
-            magicFunctionforFiltering(sortOrder, articlesFromFilter)
+                qFromFilter ? qFromFilter : null,
+                countryFromFilter ? countryFromFilter : null,
+                categoryFromFilter ? categoryFromFilter : null,
+                null,
+                initialPageState))
+           
         }
 
-    }, [categoryFromFilter, countryFromFilter, qFromFilter, sourceFromFilter, initialPageState, sortOrder])
-
-    // useEffect(() => {
-    //     if (countryFromFilter) {
-    //         console.log(countryFromFilter, 'countryFromFilter')
-    //         dispatch(toEmptyTheArrayFromFilter())
-    //         dispatch(loadDatabyCheckboxes(null, null, countryFromFilter, categoryFromFilter ? categoryFromFilter : null, null, initialPageState))
-    //         magicFunctionforFiltering(sortOrder, articlesFromFilter)
-    //     }
-
-    // }, [countryFromFilter, initialPageState, sortOrder])
-
-    // useEffect(() => {
-    //     if (categoryFromFilter) {
-    //         console.log(categoryFromFilter, "categoryFromFilter")
-    //         dispatch(toEmptyTheArrayFromFilter())
-    //         dispatch(loadDatabyCheckboxes(null, null, countryFromFilter ? countryFromFilter : null, categoryFromFilter, null, initialPageState))
-    //         magicFunctionforFiltering(sortOrder, articlesFromFilter)
-    //     }
-
-    // }, [categoryFromFilter, initialPageState, sortOrder])
+    }, [categoryFromFilter, countryFromFilter, qFromFilter, sourceFromFilter, initialPageState])
 
 
-    // useEffect(()=> {
-    //     if(qFromFilter){
-    //         console.log(q, 'qqqqqq')
-    //         dispatch(toEmptyTheArrayFromFilter())
-    //         dispatch(loadDatabyCheckboxes(null, qFromFilter, countryFromFilter ? countryFromFilter : null, categoryFromFilter ? categoryFromFilter: null, null, initialPageState))
-    //         magicFunctionforFiltering(sortOrder, articlesFromFilter)
-    //     }
-    // },[qFromFilter, initialPageState, sortOrder])
-
-    ///!!!
-    // useEffect(()=> {
-    //     if(categoryFromFilter && countryFromFilter ){
-    //         console.log(categoryFromFilter, countryFromFilter)
-    //         dispatch(loadDatabyCheckboxes(null, null, null, categoryFromFilter , countryFromFilter, initialPageState))
-    //         magicFunctionforFiltering(sortOrder, articlesFromFilter)
-    //     }
-
-    // }, [categoryFromFilter, categoryFromFilter, initialPageState, sortOrder])
-
+    const [loading, setLoading] = useState(false);
 
 
     useEffect(() => {
+
         if (sources) {
+
             dispatch(loadArticlesBySelectedSource(sources, 2, initialPageState, sort))
-            magicFunction(sortOrder, articlesFromSource)
+           dispatch(toEmptyTheSingleSourceArray)
+            // magicFunction(sortOrder, articlesFromSource)
+
         }
-    }, [sources, initialPageState, sortOrder])
 
+    }, [sources, initialPageState])
 
+                        //sortOrder
 
     useEffect(() => {
+
         if (q) {
             dispatch(loadSearchBySelectedQueryParams(q, 2, initialPageState, sort))
-            magicFunction(sortOrder, articlesFromSearch)
+            dispatch(toEmptyTheSingleSourceArray)
+            // magicFunction(sortOrder, articlesFromSearch)
+
         }
-    }, [q, initialPageState, sortOrder])
+
+    }, [q, initialPageState])
+                            //sortOrder
+
 
     useEffect(() => {
         dispatch(loadFetchedSources())
     }, [])
 
 
+    useEffect(() => {
+        setLoading(true)
+
+        setTimeout(() => { 
+            setLoading(false)
+        }, 2000)
+    }, [])
+
+
     return (
 
         <div className={s.space} id="area">
-            <Row justify='space-around'>
-                <Col xs={24} sm={24} md={14} lg={7}>
-                    <BigForm />
-                </Col>
+            {
+                loading ?
+                    <GridLoader
+                        color={"#B9ECF0"}
+                        loading={loading}
+                        size={20}
+                        // radius={2}
+                        // margin={2}
+                        height={10}
+                        width={5}
+                    /> :
+                    <Row justify='space-around'>
+                        <Col xs={24} sm={24} md={14} lg={7}>
+                            <BigForm />
+                        </Col>
 
-                <Col xs={24} sm={24} md={14} lg={15}>
-                    <Sorted />
-                    {sources ?
-                        <InfiniteScroll
-                            dataLength={articlesFromSource.length - 5}
-                            next={() => dispatch(updatePageSize(1))}
-                            hasMore={true}>
-                            {articlesFromSourceRenderArray}
-                        </InfiniteScroll>
-                        :
-                        <InfiniteScroll
-                            dataLength={articlesFromSearch.length + 2}
-                            next={() => dispatch(updatePageSize(1))}
-                            hasMore={true}>
-                            {articlesFromSearchRenderArray}
-                        </InfiniteScroll>
-                    }
-                    <InfiniteScroll
-                        dataLength={articlesFromFilter.length - 5}
-                        next={() => dispatch(updatePageSize(1))}
-                        hasMore={true}>
-                        {articlesFromFilterRrender}
+                        <Col xs={24} sm={24} md={14} lg={15}>
+                            <Sorted />
+                            { sources ?
+                                    <InfiniteScroll
+                                        dataLength={articlesFromSource.length - 5}
+                                        next={() => dispatch(updatePageSize(1))}
+                                        hasMore={true}>
+                                        {articlesFromSourceRenderArray}
+                                    </InfiniteScroll>
+                                    :
+                                    <InfiniteScroll
+                                        dataLength={articlesFromSearch.length + 2}
+                                        next={() => dispatch(updatePageSize(1))}
+                                        hasMore={true}>
+                                        {articlesFromSearchRenderArray}
+                                    </InfiniteScroll>
+                            }
 
-                    </InfiniteScroll>
-                </Col>
-            </Row>
+                        
+                                <InfiniteScroll
+                                    dataLength={articlesFromFilter.length - 5}
+                                    next={() => dispatch(updatePageSize(1))}
+                                    hasMore={true}>
+                                    {articlesFromFilterRrender}
+
+                                </InfiniteScroll>
+                        </Col>
+                    </Row>
+            }
         </div>
 
     )

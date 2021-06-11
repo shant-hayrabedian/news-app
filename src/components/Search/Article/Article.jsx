@@ -1,9 +1,13 @@
 import { Row, Col } from 'antd';
+import { months } from '../../../lib/CONSTANTS';
 import s from './Article.module.css';
-
+import PropTypes from 'prop-types'
 
 const Article = ({urlToImage, title, description, publishedAt}) => {
-    
+    const d = new Date(publishedAt)
+    const monthDay = months[d.getMonth()];
+
+    const publishedAtFormatted =  monthDay + " " + new Date(publishedAt).getDate() + " " + new Date(publishedAt).getFullYear();
     return (
 
         <div className={s.content}>
@@ -17,7 +21,7 @@ const Article = ({urlToImage, title, description, publishedAt}) => {
                 <div className={s.text}>
                     <h2>{title}</h2>
                     <p>{description}</p>
-                    <h4>{publishedAt}</h4>
+                    <h4>{publishedAtFormatted}</h4>
                 </div>
             </Col>
         </Row>
@@ -27,3 +31,10 @@ const Article = ({urlToImage, title, description, publishedAt}) => {
 }
 
 export default Article
+
+Article.propTypes={
+    urlToImage: PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    publishedAt: PropTypes.string,
+}
