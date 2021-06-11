@@ -1,45 +1,6 @@
 import { FETCH_SEARCH_SOURCE_BY_QUERY_PARAMS, TO_EMPTY_ARRAY } from './constants'
 import { fetchSearchBySelectedQueryParams } from "../../../api/headerSearchSliceAPI";
 
-///!! reverse
-const updateOrderToNewestSearch = (arr) => {
-    return {
-        type: 'newest1',
-        payload: arr || []
-    }
-}
-
-export const sortingSearchedFromNewest = (arr) => {
-    return dispatch => {
-        return dispatch(updateOrderToNewestSearch(arr.sort((a, b) => {
-            if (a.publishedAt.split('Z')[0] < b.publishedAt.split('Z')[0] ) {
-                return 1
-            } else {
-                return -1
-            }
-        })))
-    }
-}
-
-const updateOrderToOldestSearch = (arr) => {
-    return  {
-        type: 'oldest1',
-        payload: arr || [],
-    }
-}
-
-export const sortingSearchedFromOldest = (arr) => {
-    return dispatch =>  {
-        return dispatch(updateOrderToOldestSearch(arr.sort((a,b)=>{
-            if(a.publishedAt.split('Z')[0] > b.publishedAt.split('Z')[0]){
-                return 1
-            }else{
-                return -1
-            }
-        })))
-    }
-}
-
 
 
 //actions

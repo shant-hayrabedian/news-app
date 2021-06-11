@@ -1,6 +1,6 @@
 import 'antd/dist/antd.css';
 import './Form.css'
-import { Form, Radio, Row, Col, Button, Checkbox } from 'antd';
+import { Form, Button } from 'antd';
 import Country from './Country';
 import Category from './Category';
 import Source from './Source';
@@ -24,13 +24,10 @@ const BigForm = () => {
   const history = useHistory()
 
   return (
-    // <div className='items'>
     <div >
       <Button  type='primary' onClick={(e) => {
         form.resetFields()
         history.push(`/search`)
-
-
         dispatch(setCategoryIdState(''))
         dispatch(setCountryIdState(''))
         dispatch(setSourceIdState(''))
@@ -53,7 +50,6 @@ const BigForm = () => {
       </Form>
 
     </div>
-    // </div> 
   )
 }
 export default BigForm

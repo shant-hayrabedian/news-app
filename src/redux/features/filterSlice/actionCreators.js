@@ -2,16 +2,20 @@ import { fetchDataUsingCheckboxesFromFilter } from '../../../api/filterSliceAPI'
 import {
     SHOW_FILTER_CC,
     HIDE_FILTER_CC,
-    COUNTRY_CHECKED_UNCHECKED, 
-    CATEGORY_CHECKED_UNCHECKED, 
-    FETCH_DATA_USING_CHECKBOXES_AND_FILTER
+    COUNTRY_CHECKED_UNCHECKED,
+    CATEGORY_CHECKED_UNCHECKED,
+    FETCH_DATA_USING_CHECKBOXES_AND_FILTER,
+    SET_CATEGORY_ID_STATE,
+    TO_EMPTY_THE_ARTICLESFROMFILTER,
+    SET_SOURCE_ID_STATE,
+    SET_COUNTRY_ID_STATE
 } from './constants'
 
 ///!!! SEt_CATEGORY_COUNTRY_SOURCE_ID_STATE
 
-const  updateCategoryIdState = (val) => {
+const updateCategoryIdState = (val) => {
     return {
-        type: "SET_CATEGORY_ID_STATE", 
+        type: SET_CATEGORY_ID_STATE,
         payload: val
     }
 }
@@ -22,9 +26,9 @@ export const setCategoryIdState = (val) => {
     }
 }
 
-const  updateCountryIdState = (val) => {
+const updateCountryIdState = (val) => {
     return {
-        type: "SET_COUNTRY_ID_STATE", 
+        type: SET_COUNTRY_ID_STATE,
         payload: val
     }
 }
@@ -34,9 +38,9 @@ export const setCountryIdState = (val) => {
         return dispatch(updateCountryIdState(val))
     }
 }
-const  updateSourceIdState = (val) => {
+const updateSourceIdState = (val) => {
     return {
-        type: "SET_SOURCE_ID_STATE", 
+        type: SET_SOURCE_ID_STATE,
         payload: val
     }
 }
@@ -47,48 +51,16 @@ export const setSourceIdState = (val) => {
     }
 }
 
-
-///!!! LATEST_TO_OLDEST_AND_REVERSE
-
-const updateOrderToNewestFilter= (arr) => {
-    return {
-        type: 'TO_NEWEST_FILTERARTICLES',
-        payload: arr || []
-    }
-}
-
-export const sortingFilteredArticlesFromNewest = (arr) => {
-    return dispatch => {
-        return dispatch(updateOrderToNewestFilter(arr))
-    }
-}
-
-
-const updateOrderToOldestFilter= (arr) => {
-    return  {
-        type: 'TO_OLDEST_FILTERARTICLES',
-        payload: arr ,
-    }
-}
-
-
-export const sortingFilteredArticlesFromOldest = (arr) => {
-    return dispatch =>  {
-        return dispatch(updateOrderToOldestFilter(arr))
-    }
-}
-
-
 //!!! EMPTY ARR
-    const emptyTheArray =() => {
-        return {
-            type: "TO_EMPTY_THE_ARTICLESFROMFILTER",
-            payload: []
-        }
+const emptyTheArray = () => {
+    return {
+        type: TO_EMPTY_THE_ARTICLESFROMFILTER,
+        payload: []
     }
-    export function toEmptyTheArrayFromFilter() {
-        return dispatch => dispatch(emptyTheArray())
-    }
+}
+export function toEmptyTheArrayFromFilter() {
+    return dispatch => dispatch(emptyTheArray())
+}
 
 //!!!! LOAD MAIN DATA
 const updateArticlesFromFilterState = (newState) => {
@@ -98,25 +70,20 @@ const updateArticlesFromFilterState = (newState) => {
     }
 }
 
-export function loadDatabyCheckboxes(source, qFromFilter,country,category, pageSize, page){
-    return (dispatch,getState) => {
-        return fetchDataUsingCheckboxesFromFilter(source, qFromFilter,country,category, pageSize, page)
-                .then((loadedNews)=> {
-                    dispatch(updateArticlesFromFilterState(loadedNews?.articles))
-                })
+export function loadDatabyCheckboxes(source, qFromFilter, country, category, pageSize, page) {
+    return (dispatch, getState) => {
+        return fetchDataUsingCheckboxesFromFilter(source, qFromFilter, country, category, pageSize, page)
+            .then((loadedNews) => {
+                dispatch(updateArticlesFromFilterState(loadedNews?.articles))
+            })
     }
 }
 
-//!!!
-
-
-
-// kareli a argumentnerov type-@ tal konkret componentic
 //!!! CategoryCHecked
 
 const changeCategoryCheckedUnChecked = (boolean) => {
     return {
-        type:CATEGORY_CHECKED_UNCHECKED,
+        type: CATEGORY_CHECKED_UNCHECKED,
         payload: boolean
     }
 }
@@ -129,7 +96,7 @@ export const categoryCheckedUnchecked = (boolean) => {
 //!! countryChecked
 const changeCountryCheckedUnChecked = (boolean) => {
     return {
-        type:COUNTRY_CHECKED_UNCHECKED,
+        type: COUNTRY_CHECKED_UNCHECKED,
         payload: boolean
     }
 }
@@ -140,10 +107,6 @@ export const countryCheckedUnchecked = (boolean) => {
         return dispatch(changeCountryCheckedUnChecked(boolean))
     }
 }
-
-
-///!!  ADD SOURCE CHECKED IF NEEDED
-
 
 //!!!  COUNTRY_AND_CATEGORY hide show
 const hideCCAction = () => {

@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Checkbox } from 'antd';
-import { Row, Col, Form } from 'antd';
-import { useHistory, useLocation } from 'react-router';
+import { Col } from 'antd';
+import { useHistory } from 'react-router';
 import { useQuery } from '../../../../functions/URLSearchParams';
-import { useDispatch, useSelector } from 'react-redux';
-import { setCategory, setSourceQuery, setCountryCode, toEmptyTheArrayFromFilter } from '../../../../redux/features/filterSlice/actionCreators';
-import { changeOrder, resetPage } from '../../../../redux/features/pageSlice/actionCreators';
+import { useDispatch } from 'react-redux';
+import { toEmptyTheArrayFromFilter } from '../../../../redux/features/filterSlice/actionCreators';
+import { resetPage } from '../../../../redux/features/pageSlice/actionCreators';
 import { toEmptyTheSingleSourceArray } from '../../../../redux/features/singleSourceSlice/actionCreators';
 import { toEmptyTheSearchedArray } from '../../../../redux/features/headerSearchSlice/actionCreators';
+import PropTypes from 'prop-types'
 
 const CheckboxesRender = (props) => {
 
-    const countryChecked = useSelector(state => state.Filter.checked.countryChecked)
-    const categoryChecked = useSelector(state => state.Filter.checked.categoryChecked)
+
 
     const {
         idOfSelected,
@@ -24,33 +24,21 @@ const CheckboxesRender = (props) => {
         countryCode,
         category
     } = props
-    // console.log(sourceQuery, countryCode, category)
     const history = useHistory()
     const query = useQuery()
 
-    const source = query.get('source')
 
     const countryCodeFromQuery = query.get('country')
     const categoryFromQuery = query.get('category')
-    // console.log(source)
     const dispatch = useDispatch()
-
-    const location = useLocation()
-
- 
-
-
 
 
     const pushUrl = (e, sourceQuery, countryCode, category) => {
-
-
         if (e.target.checked) {
             if (countryCode) {
                 history.push(`/search?country=${countryCode}${categoryFromQuery ? '&category=' + categoryFromQuery : ''}`)
             } else if (category) {
                 history.push(`/search?category=${category}${countryCodeFromQuery ? '&country=' + countryCodeFromQuery : ''}`)
-
             } else {
                 history.push(`/search?source=${sourceQuery}`)
 
@@ -61,13 +49,8 @@ const CheckboxesRender = (props) => {
             } else if (category) {
                 history.push(`/search?${countryCodeFromQuery ? "country=" + countryCodeFromQuery : ''}`)
             }
-         
+
         }
-
-   
-
-
-
     }
 
 
@@ -87,7 +70,6 @@ const CheckboxesRender = (props) => {
                 }}
                 onClick={(e) => {
                     toggleCheck(e)
-                    // dispatch(changeOrder('latest'))
                     pushUrl(e, sourceQuery, countryCode, category);
                     dispatch(toEmptyTheSingleSourceArray())
                     dispatch(toEmptyTheSearchedArray())
@@ -102,3 +84,13 @@ const CheckboxesRender = (props) => {
 }
 
 export default CheckboxesRender
+CheckboxesRender.propTypes={
+    idOfSelected: PropTypes.string,
+    id: PropTypes.number,
+    onChange: PropTypes.func,
+    toggleCheck: PropTypes.func,
+    name: PropTypes.string,
+    sourceQuery: PropTypes.string,
+    countryCode: PropTypes.string,
+    category: PropTypes.string,
+}

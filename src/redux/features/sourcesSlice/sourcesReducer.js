@@ -1,4 +1,4 @@
-import {FETCH_SOURCES, TO_EMPTY_SOURCE} from './constants'
+import {FETCH_SOURCES} from './constants'
 
 export const initialSourcesState = {
     sources: []
@@ -8,8 +8,6 @@ export const fetchNews = (state = initialSourcesState, action) => {
     switch (action.type) {
         case FETCH_SOURCES:
             return { ...state, sources: action.payload};
-        // case TO_EMPTY_SOURCE:
-        //     return {sources: action.payload}
         default:
             return state
     }

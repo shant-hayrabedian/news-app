@@ -12,10 +12,7 @@ export const getArticlesfromSearching = (state = initialSearchState, action) => 
             return { ...state, fromEvent: [...state.fromEvent, ...action.payload] };
         case TO_EMPTY_ARRAY:
             return { ...state, fromEvent: action.payload }
-        case 'newest1':
-            return { ...state, fromEvent: [...state.fromEvent, ...action.payload] }
-        case 'oldest1':
-            return { ...state, fromEvent: [...state.fromEvent, ...action.payload] }
+
         default:
             return state
     }

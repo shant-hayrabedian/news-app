@@ -1,8 +1,7 @@
-import { Checkbox } from 'antd';
-import { Row, Col, Form } from 'antd';
+import { Row } from 'antd';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { countryCheckedUnchecked, setCountryCode, setCountryIdState } from '../../../redux/features/filterSlice/actionCreators';
+import { countryCheckedUnchecked, setCountryIdState } from '../../../redux/features/filterSlice/actionCreators';
 import { countries } from 'country-data'
 import CheckboxesRender from './Checkbox/CheckboxesRender';
 import { countriesAbb, max } from '../../../lib/CONSTANTS';
@@ -67,6 +66,7 @@ const Country = () => {
                 countryCode={country.abbreviation} />
 
         }
+        return null
     })
 
     return (
