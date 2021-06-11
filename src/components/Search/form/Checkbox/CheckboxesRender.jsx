@@ -8,6 +8,7 @@ import { toEmptyTheArrayFromFilter } from '../../../../redux/features/filterSlic
 import { resetPage } from '../../../../redux/features/pageSlice/actionCreators';
 import { toEmptyTheSingleSourceArray } from '../../../../redux/features/singleSourceSlice/actionCreators';
 import { toEmptyTheSearchedArray } from '../../../../redux/features/headerSearchSlice/actionCreators';
+import PropTypes from 'prop-types'
 
 const CheckboxesRender = (props) => {
 
@@ -83,3 +84,13 @@ const CheckboxesRender = (props) => {
 }
 
 export default CheckboxesRender
+CheckboxesRender.propTypes={
+    idOfSelected: PropTypes.string,
+    id: PropTypes.number,
+    onChange: PropTypes.func,
+    toggleCheck: PropTypes.func,
+    name: PropTypes.string,
+    sourceQuery: PropTypes.string,
+    countryCode: PropTypes.string,
+    category: PropTypes.string,
+}

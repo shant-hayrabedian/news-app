@@ -1,4 +1,4 @@
-import {FETCH_SOURCES, TO_EMPTY_SOURCE} from './constants'
+import {FETCH_SOURCES} from './constants'
 
 export const initialSourcesState = {
     sources: []

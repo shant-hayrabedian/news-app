@@ -1,9 +1,8 @@
-import { Checkbox } from 'antd';
-import { Row, Col, Form } from 'antd';
+import { Row } from 'antd';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { max } from '../../../lib/CONSTANTS';
-import { showCountryAndCategory, hideCountryAndCategory, setSourceQuery, setSourceIdState } from '../../../redux/features/filterSlice/actionCreators';
+import { showCountryAndCategory, hideCountryAndCategory, setSourceIdState } from '../../../redux/features/filterSlice/actionCreators';
 import CheckboxesRender from './Checkbox/CheckboxesRender';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
@@ -66,6 +65,8 @@ const Source = () => {
 
 
         }
+        return null
+
     })
 
 
