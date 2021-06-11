@@ -1,0 +1,15 @@
+.items {
+    padding: 25px;
+    padding-top: 25px;
+    background-color: #35878d81;
+}
+.item {
+    padding-top: 15px;
+}
+.ant-btn-primary {
+    color: black;
+    background: #35878d81;
+    border-color: #35878d81;
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+    box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+}

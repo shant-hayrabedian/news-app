@@ -1,27 +1,67 @@
-import {Card} from 'antd';
+import React, { useState, useEffect } from 'react'
+import { Card } from 'antd';
+
+import { Col, Row } from 'antd';
 import './Home.css';
+
+
+
+//redux../../redux/features/sourcesSlice/actions/actionCreators
+import { useSelector, useDispatch } from 'react-redux'
+
+import { loadFetchedSources } from '../../redux/features/sourcesSlice/actionCreators.js';
+import { ConsoleSqlOutlined } from '@ant-design/icons';
+import SingleSourceCard from './SingleSourceCard/SingleSourceCard';
+import { toEmptyTheSingleSourceArray } from '../../redux/features/singleSourceSlice/actionCreators';
+import { resetPage } from '../../redux/features/pageSlice/actionCreators';
+import FadeLoader from "react-spinners/FadeLoader";
+
 const Home = () => {
-    const {Meta} = Card;
+    const { Meta } = Card;
+
+    const sources = useSelector((state) => state.FetchedSources?.sources) || [];
+    const [loading, setLoading] = useState(false);
+
+    const dispatch = useDispatch();
+
+    useEffect(async () => {
+        setLoading(true)
+        await dispatch(loadFetchedSources())
+        setLoading(false)
+
+
+
+    }, [])
+
+
+
+    const listOfSources = sources.map((singleSource) => <SingleSourceCard key={singleSource.id} {...singleSource} />)
+
     return (
-        <div>
-            <h2>Sources</h2>
-            {/*    */}
-            <Card
-                style={{width: 300, background: '#C4C4C4'}}
-                actions={[
-                    <a>political</a>,
-                    <a>Language</a>,
-                    <a>country</a>
-                ]}
-            >
-                <Meta
-                    title="New York Times"
-                    description="Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                     Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                      when an unknown printer took a galley of type and scrambled it to make a type specimen book"
-                />
-            </Card>
-        </div>
+        <>
+            {
+                loading ?
+                    <FadeLoader
+                        color={"#B9ECF0"}
+                        loading={loading}
+                        size={40}
+                        radius={2}
+                        height={15}
+                        width={5}
+                        margin={10}
+                    />
+                    :
+                    <div>
+
+                        <p className="sourcesParagraph">Sources</p>
+                        <Row justify="space-around" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
+                            style={{ marginLeft: '-16px', marginRight: '0px', rowGap: '0px' }} >
+                            {listOfSources}
+                        </Row>
+
+                    </div>
+            }
+        </>
     )
 }
 
